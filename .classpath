@@ -6,5 +6,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/Users/anubhavgarikapadu/Eclipse Workspace/Bidsy/src/webapp/WEB-INF/lib/bootstrap-5.2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/anubhavgarikapadu/Eclipse Workspace/Bidsy/src/webapp/WEB-INF/lib/tomcat-7.0.26.tomcat-juli.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

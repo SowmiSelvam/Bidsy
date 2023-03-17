@@ -12,11 +12,6 @@
 <body>
 
 	<div class="float-container" style="display: flex">
-		<div class="imgcontainer">
-			<img src="images/login.jpg" alt="bgimg"
-				style="height: 120%; width: 120%">
-		</div>
-
 		<div class="container">
 			<div class="new">
 				<form method="post" action="login">

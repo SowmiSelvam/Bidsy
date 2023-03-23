@@ -10,30 +10,15 @@
 <title>Login</title>
 </head>
 <body>
-
-	<div class="float-container" style="display: flex">
-		<div class="container">
-			<div class="new">
-				<form method="post" action="login">
-					<p>
-						LOGIN TO <strong>BIDSY</strong>
-					</p>
-					<label for="uname">Username</label> <input type="text"
-						placeholder="Enter Username" name="uname" id="uname" required>
-
-					<label for="psw">Password</label> <input type="password"
-						placeholder="Enter Password" name="psw" id="psw" required>
-					<br> <br>
-					<button type="submit">Login</button>
-
-
-					<br> <br> <a href="signup.jsp"
-						style="color: rgb(57, 57, 107); text-align: center;"><span>
-							<b>Don't have an account ?</b>
-					</span></a>
-			</div>
-		</div>
-
-		</form>
+    <div class="login-page">
+  <div class="form">
+    <form class="login-form" method="post" action="login">
+      <input type="text" placeholder="Username"/>
+      <input type="password" placeholder="Password"/>
+      <button>login</button>
+      <p class="message">Not registered? <a href="signup.jsp">Create an account</a></p>
+    </form>
+  </div>
+</div>
 </body>
 </html>

@@ -38,6 +38,7 @@ public class Login extends HttpServlet {
 					
 					if(rs.next()) {
 						HttpSession session = request.getSession();
+						
 						session.setAttribute("user", uname);
 						
 						//check the type of user

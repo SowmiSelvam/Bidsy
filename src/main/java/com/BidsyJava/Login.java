@@ -1,6 +1,7 @@
 package main.java.com.BidsyJava;
 
 import javax.servlet.http.*;
+
 import java.sql.*;
 import javax.servlet.ServletException;
 import javax.servlet.SessionCookieConfig;
@@ -51,7 +52,7 @@ public class Login extends HttpServlet {
 							//set web page attributes
 							
 							//set JSP User
-							response.sendRedirect("");
+							response.sendRedirect("user_landing.jsp");
 						}else {
 							PreparedStatement ps2 = conn
 									.prepareStatement("select is_admin from bidsy_employee where user_id = ?");
@@ -65,12 +66,12 @@ public class Login extends HttpServlet {
 									//set web page attributes
 									
 									//set JSP admin
-									response.sendRedirect("");
+									response.sendRedirect("admin_landing.jsp");
 								}else {
 									//set web page attributes
 									
 									//set JSP employee
-									response.sendRedirect("");
+									response.sendRedirect("employee_landing.jsp");
 								}
 							}
 

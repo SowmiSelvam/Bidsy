@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/Users/anubhavgarikapadu/Eclipse Workspace/Bidsy/src/webapp/WEB-INF/lib/bootstrap-5.2.4.jar"/>
-	<classpathentry kind="lib" path="/Users/anubhavgarikapadu/Eclipse Workspace/Bidsy/src/webapp/WEB-INF/lib/tomcat-7.0.26.tomcat-juli.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/Users/anubhavgarikapadu/Eclipse Workspace/Bidsy/src/main/webapp/WEB-INF/lib/jdbc.jar"/>
+	<classpathentry kind="lib" path="/Users/anubhavgarikapadu/Eclipse Workspace/Bidsy/src/main/webapp/WEB-INF/lib/mysql-connector-j-8.0.32.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

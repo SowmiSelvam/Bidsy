@@ -9,9 +9,9 @@
 <body>
 <div class="dashboard">
  <div style="float:right">
-<form align="right" name="form1" method="post" action="log_out.php">
+<form align="right" name="form1" method="post" action="logout.jsp">
   <label class="logoutLblPos">
-  <a href="login.jsp"><input name="submit2" type="submit" id="submit2" value="log out" ></a>
+  <input name="submit2" type="submit" id="submit2" value="log out" >
   </label>
 </form>
 </div>

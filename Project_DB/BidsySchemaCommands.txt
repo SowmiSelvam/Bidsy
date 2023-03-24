@@ -1,0 +1,25 @@
+CREATE DATABASE `BidsyDB` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+use BidsyDB;
+
+CREATE TABLE `bidsy_user` (
+  `first_name` varchar(30) DEFAULT NULL,
+  `last_name` varchar(20) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `user_id` varchar(30) NOT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `telephone_no` int DEFAULT NULL,
+  `password` varchar(30) DEFAULT NULL,
+  `bank_acc_no` bigint DEFAULT NULL,
+  `routing_no` int DEFAULT NULL,
+  `is_user` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `bidsy_employee` (
+  `emp_id` varchar(30) DEFAULT NULL,
+  `is_admin` tinyint(1) DEFAULT NULL,
+  `user_id` varchar(30) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT `bidsy_employee_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

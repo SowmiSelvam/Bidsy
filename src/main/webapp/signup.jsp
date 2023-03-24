@@ -13,15 +13,15 @@
     <div class="signup-page">
   <div class="form">
     <form class="register-form" method="post" action="signup">
-      <input type="text" placeholder="First Name"/>
-        <input type="text" placeholder="Last Name"/>
-        <input type="text" placeholder="User Id"/>
-      <input type="password" placeholder="Password"/>
-      <input type="text" placeholder="Email Address"/>
-        <input type="text" placeholder="Phone Number"/>
-        <input type="text" placeholder="Address"/>
-        <input type="text" placeholder="Account Number"/>
-        <input type="text" placeholder="Routing Number"/>
+      <input type="text" required placeholder="First Name"/>
+        <input type="text" required placeholder="Last Name"/>
+        <!-- <input type="text" placeholder="User Id"/> -->
+      <input type="password" required placeholder="Password"/>
+      <input type="text" required placeholder="Email Address"/>
+        <input type="text" required placeholder="Phone Number"/>
+        <input type="text" required placeholder="Address"/>
+        <input type="text" required placeholder="Account Number"/>
+        <input type="text" required placeholder="Routing Number"/>
       <button>create</button>
       <p class="message">Already registered? <a href="login.jsp">Sign In</a></p>
     </form>

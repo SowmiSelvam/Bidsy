@@ -13,8 +13,8 @@
     <div class="login-page">
   <div class="form">
     <form class="login-form" method="post" action="login">
-      <input type="text" placeholder="Username"/>
-      <input type="password" placeholder="Password"/>
+      <input type="text" required placeholder="Username"/>
+      <input type="password" required placeholder="Password"/>
       <button>login</button>
       <p class="message">Not registered? <a href="signup.jsp">Create an account</a></p>
     </form>

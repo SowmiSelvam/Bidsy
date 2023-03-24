@@ -4,9 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Employee Landing</title>
 </head>
 <body>
-
+<div class="dashboard">
+ <div style="float:right">
+<form align="right" name="form1" method="post" action="logout.jsp">
+  <label class="logoutLblPos">
+  <input name="submit2" type="submit" id="submit2" value="log out" >
+  </label>
+</form>
+</div>
+</div>
 </body>
 </html>

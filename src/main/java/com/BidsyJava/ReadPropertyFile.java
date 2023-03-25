@@ -1,13 +1,18 @@
 package main.java.com.BidsyJava;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 public class ReadPropertyFile {
 	
-	public static Properties readPropertyFile() {
+	public Properties readPropertyFile() {
 		try {
-			FileReader reader=new FileReader("/Property Files/Bidsy.properties");  
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+				    this.getClass().getResourceAsStream("/main/java/com/BidsyJava/Resources/Bidsy.properties")));
+			 
 
 			Properties p=new Properties();  
 			p.load(reader);

@@ -17,7 +17,8 @@ public class ApplicationDB {
 		//Create a connection string
 		String connectionUrl = "jdbc:mysql://localhost:3306/BidsyDB";
 		Connection connection = null;
-		Properties prop = ReadPropertyFile.readPropertyFile();
+		ReadPropertyFile rd = new ReadPropertyFile();
+		Properties prop = rd.readPropertyFile();
 
 		try {
 			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
@@ -36,6 +37,8 @@ public class ApplicationDB {
 			//Create a connection to your DB
 			String userId = prop.getProperty("DBLoginID");
 			String pwd = prop.getProperty("DBLoginPwd");
+			CustomLogger.log("Userid:" + userId);
+			CustomLogger.log("pwd:" + pwd);
 			connection = DriverManager.getConnection(connectionUrl,userId, pwd);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

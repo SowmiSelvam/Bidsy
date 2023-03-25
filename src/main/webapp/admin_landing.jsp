@@ -9,7 +9,7 @@
 <body>
 <div class="dashboard">
  <div style="float:right">
-<form align="right" name="form1" method="post" action="logout.jsp">
+<form align="right" name="form1" method="post" action="logout">
   <label class="logoutLblPos">
   <input name="submit2" type="submit" id="submit2" value="log out" >
   </label>

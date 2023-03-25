@@ -10,7 +10,8 @@ public class CustomLogger {
 
 	static {
 		logger.setUseParentHandlers(false);
-		Properties prop = ReadPropertyFile.readPropertyFile();
+		ReadPropertyFile rd = new ReadPropertyFile();
+		Properties prop = rd.readPropertyFile();
 
 		ConsoleHandler consoleHandler = new ConsoleHandler();
 		consoleHandler.setFormatter(new SimpleFormatter());

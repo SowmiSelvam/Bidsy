@@ -22,4 +22,13 @@
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>signup</servlet-name>
+        <servlet-class>main.java.com.BidsyJava.Signup</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>signup</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
 </web-app>

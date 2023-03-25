@@ -24,7 +24,7 @@ public class Login extends HttpServlet {
 		try {
 			String uname = (String) request.getParameter("uname");
 			String pass = (String) request.getParameter("psw");
-			Class.forName("com.mysql.jdbc.Driver");
+
 			conn = apDB.getConnection();
 
 			if (conn != null) {
@@ -47,8 +47,8 @@ public class Login extends HttpServlet {
 						String last_name = rs.getString("last_name");
 						String user_id = rs.getString("user_id");
 						String is_user = rs.getString("is_user");
-						
-						if(is_user.equalsIgnoreCase("True")) {
+						System.out.println(first_name+", "+last_name+", "+user_id+", "+is_user);
+						if(is_user.equalsIgnoreCase("1")) {
 							//set web page attributes
 							
 							//set JSP User
@@ -61,12 +61,12 @@ public class Login extends HttpServlet {
 							
 							if(rs2.next()) {
 								String is_admin = rs.getString("is_admin");
-								
-								if(is_admin.equalsIgnoreCase("True")) {
+								System.out.println(is_admin);
+								if(is_admin.equalsIgnoreCase("1")) {
 									//set web page attributes
 									
 									//set JSP admin
-									response.sendRedirect("admin_landing.jsp");
+									response.sendRedirect("google.com");
 								}else {
 									//set web page attributes
 									

@@ -1,6 +1,7 @@
 package main.java.com.BidsyJava;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -13,7 +14,7 @@ public class ApplicationDB {
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "jdbc:mysql://localhost:3306/BarBeerDrinkerSample";
+		String connectionUrl = "jdbc:mysql://localhost:3306/BidsyDB";
 		Connection connection = null;
 		
 		try {
@@ -48,17 +49,5 @@ public class ApplicationDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-		ApplicationDB dao = new ApplicationDB();
-		Connection connection = dao.getConnection();
-		
-		System.out.println(connection);		
-		dao.closeConnection(connection);
 	}
 }

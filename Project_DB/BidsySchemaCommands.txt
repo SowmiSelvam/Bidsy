@@ -1,6 +1,6 @@
-CREATE DATABASE `BidsyDB` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE `bidsydb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-use BidsyDB;
+use bidsydb;
 
 CREATE TABLE `bidsy_user` (
   `first_name` varchar(30) DEFAULT NULL,

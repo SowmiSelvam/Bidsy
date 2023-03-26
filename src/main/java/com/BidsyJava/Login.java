@@ -82,6 +82,11 @@ public class Login extends HttpServlet {
 					}
 					//redirect based on type of user
 				}
+//				else
+//				{
+//					
+//					
+//				}
 
 			} catch (Exception e) {
 				out.print(e);

@@ -52,6 +52,9 @@ public class Login extends HttpServlet {
 					String user_id = rs.getString("user_id");
 					String is_user = rs.getString("is_user");
 					CustomLogger.log(first_name+", "+last_name+", "+user_id+", "+is_user);
+					session.setAttribute("fname", first_name);
+					session.setAttribute("lname", last_name);
+					
 					if(is_user.equalsIgnoreCase("1")) {
 						//set web page attributes
 

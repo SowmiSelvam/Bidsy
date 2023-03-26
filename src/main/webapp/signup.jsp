@@ -13,7 +13,6 @@
             <div class="form">
                 <form class="register-form" method="post" action="signup">
                     <input type="text" required placeholder="First Name" name="first_name" /> <input type="text" required placeholder="Last Name" name="last_name" />
-                    <!-- <input type="text" placeholder="User Id"/> -->
                     <input type="password" required placeholder="Password" name="password" />
                     <input type="text" required placeholder="Email Address" name="email" />
                     <input type="text" required placeholder="Phone Number" name="phone_number" /> <input type="text" required placeholder="Address" name="address" />

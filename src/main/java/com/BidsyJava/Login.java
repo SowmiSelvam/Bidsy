@@ -82,11 +82,17 @@ public class Login extends HttpServlet {
 					}
 					//redirect based on type of user
 				}
-//				else
-//				{
-//					
-//					
-//				}
+				else
+				{
+					String msg="No Such Account Exists. Please Try Again.";
+					CustomLogger.log(msg);
+
+					out.println("<script type=\"text/javascript\">");
+					out.println("alert('"+msg+"');");
+					out.println("location='login.jsp';");
+					out.println("</script>");
+					
+				}
 
 			} catch (Exception e) {
 				out.print(e);

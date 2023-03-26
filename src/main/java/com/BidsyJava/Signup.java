@@ -61,8 +61,13 @@ public class Signup extends HttpServlet {
 
 						int x = ps.executeUpdate();
 						if(x>0){
-							CustomLogger.log("User inserted: "+user_id);
-							response.sendRedirect("login.jsp");
+							String msg="Account Registered. You can log in now.";
+							CustomLogger.log(msg);
+
+							out.println("<script type=\"text/javascript\">");
+							out.println("alert('"+msg+"');");
+							out.println("location='login.jsp';");
+							out.println("</script>");
 
 						}
 					}

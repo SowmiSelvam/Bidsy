@@ -87,7 +87,7 @@ public class Login extends HttpServlet {
 				}
 				else
 				{
-					String msg="No Such Account Exists. Please Try Again.";
+					String msg="Invalid Login id Password. Please Try Again.";
 					CustomLogger.log(msg);
 
 					out.println("<script type=\"text/javascript\">");

@@ -60,7 +60,6 @@ public class Signup extends HttpServlet {
 						ps.setString(9,routing_no);
 
 						int x = ps.executeUpdate();
-						out.print("in");
 						if(x>0){
 							CustomLogger.log("User inserted: "+user_id);
 							response.sendRedirect("login.jsp");
@@ -68,8 +67,7 @@ public class Signup extends HttpServlet {
 						}
 					}
 				}catch(Exception e){
-					String msg="Account exists with some issues.";
-					CustomLogger.log(msg);
+					e.printStackTrace();
 				}
 			}
 		}catch(Exception e){

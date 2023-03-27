@@ -8,33 +8,41 @@ public class CustomLogger {
 
 	private static final Logger logger = Logger.getLogger("CustomLogger");
 
+	static ReadPropertyFile rd = new ReadPropertyFile();
+	static Properties prop = rd.readPropertyFile();
+	static String enableLogging = prop.getProperty("EnableLogging");
+	
 	static {
-		logger.setUseParentHandlers(false);
-		ReadPropertyFile rd = new ReadPropertyFile();
-		Properties prop = rd.readPropertyFile();
-
-		ConsoleHandler consoleHandler = new ConsoleHandler();
-		consoleHandler.setFormatter(new SimpleFormatter());
-		consoleHandler.setLevel(Level.INFO);
-
-		FileHandler fileHandler;
 		try {
-			String path = prop.getProperty("LoggerPath");
-			fileHandler = new FileHandler(path);
-			fileHandler.setFormatter(new SimpleFormatter());
-			fileHandler.setLevel(Level.ALL);
+			logger.setUseParentHandlers(false);
+			ConsoleHandler consoleHandler = new ConsoleHandler();
+			consoleHandler.setFormatter(new SimpleFormatter());
+			consoleHandler.setLevel(Level.INFO);
 
-			logger.addHandler(fileHandler);
-		} catch (IOException e) {
+			FileHandler fileHandler;
+
+			if(enableLogging.equalsIgnoreCase("1")) {
+				String path = prop.getProperty("LoggerPath");
+				fileHandler = new FileHandler(path);
+				fileHandler.setFormatter(new SimpleFormatter());
+				fileHandler.setLevel(Level.ALL);
+
+				logger.addHandler(fileHandler);
+				logger.addHandler(consoleHandler);
+				logger.setLevel(Level.ALL);
+			}
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		logger.addHandler(consoleHandler);
-		logger.setLevel(Level.ALL);
 	}
 
 	public static void log(String message) {
-		logger.log(Level.INFO, message);
+		
+		if(enableLogging.equalsIgnoreCase("1")) {
+			logger.log(Level.INFO, message);
+		}
 	}
 
 }

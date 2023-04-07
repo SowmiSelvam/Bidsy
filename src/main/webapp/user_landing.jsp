@@ -25,7 +25,14 @@
 			String lname = (String) session.getAttribute("lname");
 			out.print("Welcome " + fname + " " + lname);
 			%>
+			<div>
+				<button class="redirect buy">Buy items</button>
+			</div>
+			<div>
+				<a href="sell_item.jsp"><button class="redirect sell">Sell items</button></a>
+			</div>
 		</div>
+
 	</div>
 </body>
 </html>

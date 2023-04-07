@@ -43,4 +43,15 @@
         <servlet-name>employeeRegister</servlet-name>
         <url-pattern>/employeeRegister</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>sellItem</servlet-name>
+        <servlet-class>main.java.com.BidsyJava.SellItem</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>sellItem</servlet-name>
+        <url-pattern>/sellItem</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

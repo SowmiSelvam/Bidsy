@@ -26,7 +26,7 @@
 			out.print("Welcome " + fname + " " + lname);
 			%>
 			<div>
-				<button class="redirect buy">Buy items</button>
+				<a href="marketplace.jsp"><button class="redirect buy">Buy items</button></a>
 			</div>
 			<div>
 				<a href="sell_item.jsp"><button class="redirect sell">Sell items</button></a>

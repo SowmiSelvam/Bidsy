@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
-<%@ page import = "main.java.com.BidsyJava.*" %>
+<%@ page import="main.java.com.BidsyJava.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +17,11 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="logout">
+			<label style="float: right" class="logoutLblPos">
+				<a href="user_landing.jsp"><button name="home">Home</button></a>
+			</label>
+	</div>
 	<div class="container">
 		<h1 class="text-center">Sell Item</h1>
 		<form action="SellItem" method="post">
@@ -45,8 +50,19 @@
 					name="endAuctionTime" required>
 			</div>
 			<div class="form-group">
+				<label for="secretMinimumPrice">Secret Minimum Price:</label> <input
+					type="number" class="form-control" id="secretMinPrice"
+					name="secretMinPrice" required>
+			</div>
+			<div class="form-group">
+				<label for="bidIncrements">Bid Increments:</label> <input
+					type="number" class="form-control" id="bidIncrements"
+					name="bidIncrements" required>
+			</div>
+			<div class="form-group">
 				<label for="subCategory">Subcategory:</label> <select
-					class="form-control" id="subCategory" name="subCategory">
+					class="form-control" id="subCategory" name="subCategory" required>
+					<option value="" selected disabled hidden> Select subCategory</option>
 					<%
 					try {
 						// get subcategories from the database
@@ -63,8 +79,9 @@
 							int categoryIndex = rs.getInt("category_index");
 							
 							// get category name from category table
-							sql = "SELECT category_name FROM category WHERE category_index=" + categoryIndex;
-							ResultSet rs2 = stmt.executeQuery(sql);
+							Statement stmt2 = con.createStatement();
+							String sql2 = "SELECT category_name FROM category WHERE category_index=" + categoryIndex;
+							ResultSet rs2 = stmt2.executeQuery(sql2);
 							rs2.next();
 							String categoryName = rs2.getString("category_name");
 							%>

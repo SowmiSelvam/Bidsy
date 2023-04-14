@@ -24,6 +24,7 @@
 				</tr>
 
 				<%
+				CustomLogger.log(request.getParameter("item_id"));
 				int item_id = Integer.valueOf(request.getParameter("item_id"));
 				ApplicationDB ap = new ApplicationDB();
 				Connection con = ap.getConnection();
@@ -53,7 +54,7 @@
 
 						int bidding_price = 0;
 						while (rs2.next()) {
-							bidding_price = rs2.getInt("bidding_price");
+					bidding_price = rs2.getInt("bidding_price");
 
 						}
 						StringBuilder str = new StringBuilder();
@@ -103,36 +104,58 @@
 					</tr>
 
 					<%
-				try {
-					Statement stmt2 = con.createStatement();
-					String sql = "select question, answer from comments_inEditsContainsQnA where item_id ="
-					+ item_id + ";";
+					try {
+						if (request.getParameter("questionUser") != null && !request.getParameter("questionUser").isEmpty()) {
+							PreparedStatement ps = con.prepareStatement(
+							"insert into comments_inEditsContainsQnA(q_user_id,date_time,item_id,question) values(?,CURRENT_TIMESTAMP,?,?)");
+							ps.setString(1, (String) session.getAttribute("user"));
+							ps.setString(2, request.getParameter("item_id"));
+							ps.setString(3, request.getParameter("questionUser"));
 
-					ResultSet rs2 = stmt2.executeQuery(sql);
-					// loop through the result set and create options for the select element
-					if(rs2 != null){
-					while (rs2.next()) {
-						String question = rs.getString("question");
-						String answer = rs.getString("answer");
+							int x = ps.executeUpdate();
+							if (x > 0) {
+						CustomLogger.log("Inserted into Questions");
 
+							}
 						}
+
+						Statement stmt3 = con.createStatement();
+						CustomLogger.log(String.valueOf(item_id));
+						String sql3 = "select question, answer from comments_inEditsContainsQnA where item_id =" + item_id + ";";
+						ResultSet rs3 = stmt3.executeQuery(sql3);
+						// loop through the result set and create options for the select element
+						
+						while (rs3.next()) {
+							String itemQuestion = rs3.getString("question");
+							CustomLogger.log(itemQuestion);
+
+							String itemAnswer = (rs3.getString("answer") != null) ? rs3.getString("answer") : "";
+							CustomLogger.log(itemAnswer);
+
+							StringBuilder str3 = new StringBuilder();
+
+							str3.append("<tr><td>").append(itemQuestion).append("</td>").append("<td>").append(itemAnswer)
+							.append("</td></tr>");
+
+							out.print(str3);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
-						StringBuilder str2 = new StringBuilder();
-
-						str2.append("<tr><td>").append(question).append("</td></tr>")
-						.append("<tr><td>").append(answer).append("</td></tr>");
-
-						out.print(str2);
-				%>
+					%>
 
 
 				</table>
-				<form>
-				<input type="text" value="questionUser" name="questionUser" id="questionUser">
+				<form style="float: left" method='post' action='product.jsp'>
+					<input type="text" name="item_id" value="<%=item_id%>" hidden>
+					<input type="text" name="questionUser" id="questionUser" />
+
+					<button>Post</button>
 				</form>
 			</div>
 			<%
-				
+			}
+
 			} catch (SQLException e) {
 			e.printStackTrace();
 			} finally {

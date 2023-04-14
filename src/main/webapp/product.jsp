@@ -31,7 +31,6 @@
 				try {
 
 					Statement stmt = con.createStatement();
-					//if(item_id == )
 					CustomLogger.log("item_id:" + request.getParameter("item_id"));
 					String sql = "select title, email, sub_category_index, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id  from itemClassifies where item_id ="
 					+ item_id + ";";

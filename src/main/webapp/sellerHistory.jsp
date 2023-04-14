@@ -100,7 +100,7 @@
 		</div>
 		
 		<div class="form">
-		<label><b>Items the Seller has sold</b>></label>
+		<label><b>Items the Seller has sold</b></label>
 			<table>
 				<tr>
 					<th>Title:</th>

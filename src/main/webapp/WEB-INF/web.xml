@@ -54,4 +54,14 @@
         <url-pattern>/sellItem</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>bid</servlet-name>
+        <servlet-class>main.java.com.BidsyJava.Bid</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>bid</servlet-name>
+        <url-pattern>/bid</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

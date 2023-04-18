@@ -61,7 +61,7 @@
 						str.append("<tr><td>Title:</td><td>").append(title).append("</td></tr>")
 						.append("<tr><td>Item Description:</td><td>").append(itemDescription).append("</td></tr>")
 						.append("<tr><td>Starting Price:</td><td>").append(String.valueOf(starting_price)).append("</td></tr>")
-						.append("<tr><td>Current Bidding Price:</td><td>").append(String.valueOf(bidding_price))
+						.append("<tr><td>Current Bidding Price:</td><td id=").append("\"currBiddingPrice\">").append(String.valueOf(bidding_price))
 						.append("</td></tr>").append("<tr><td>Start Auction Time:</td><td>")
 						.append(String.valueOf(start_auction_time)).append("</td></tr>")
 						.append("<tr><td>End Auction Time:</td><td>").append(String.valueOf(end_auction_time))
@@ -73,18 +73,19 @@
 			<br />
 
 			<div>
-				<form>
+					<input name="bidAmount" id = "bidAmount" placeholder="Bid Amount" required>
 					<input type="checkbox" id="anonymousBid" name="anonymousBid">
 					<label for="anonymousBid">Bid Anonymous</label> <input
 						type="checkbox" id="autoBid" name="autoBid"> <label
 						for="autoBid">Enable Auto Bid</label>
-					<button>Bid</button>
-				</form>
+						<input name="secretUpperLimit" id = "secretUpperLimit" placeholder="Secret Upper Limit" disabled>
+						<input name="autoBidIncrement" id = "autoBidIncrement" placeholder="Auto Bid Increment" disabled>
+					<button id="bid">Bid</button>
 			</div>
 			<br />
 			<div>
 				<form method="post">
-					<input type="text" value="<%=item_id%>" name="item_id" hidden /> <input
+					<input type="text" value="<%=item_id%>" name="item_id" id="item_id" hidden /> <input
 						type="text" value="<%=email%>" name="email" hidden /> <input
 						type="text" value="<%=sub_category_index%>"
 						name="sub_category_index" hidden /> <input type="submit"
@@ -163,5 +164,6 @@
 			%>
 		</div>
 	</div>
+	<script src="products.js"></script>
 </body>
 </html>

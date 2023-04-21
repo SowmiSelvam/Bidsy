@@ -31,6 +31,9 @@
 			<div>
 				<a href="auctionsList.jsp"><button class="redirect buy">View All Auctions</button></a>
 			</div>
+			<div>
+				<a href="usersList.jsp"><button class="redirect buy">View All Users</button></a>
+			</div>
 		</div>
 	</div>
 </body>

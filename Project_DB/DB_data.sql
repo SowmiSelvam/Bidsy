@@ -36,7 +36,7 @@ CREATE TABLE `bids` (
   PRIMARY KEY (`bid_id`),
   KEY `user_id` (`user_id`),
   KEY `item_id` (`item_id`),
-  CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`),
+  CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -47,7 +47,7 @@ CREATE TABLE `bids` (
 
 LOCK TABLES `bids` WRITE;
 /*!40000 ALTER TABLE `bids` DISABLE KEYS */;
-INSERT INTO `bids` VALUES (6,1200,800,'2023-04-15 14:20:00',10,'vj@bidsy.com',1,NULL),(7,1000,850,'2023-04-16 10:45:00',5,'ag@bidsy.com',1,NULL),(8,1100,900,'2023-04-17 13:30:00',10,'hk@bidsy.com',1,NULL),(9,1500,1000,'2023-04-18 16:15:00',20,'selvam@bidsy.com',1,NULL);
+INSERT INTO `bids` VALUES (6,1200,800,'2023-04-15 14:20:00',10,'vj@bidsy.com',1,NULL),(7,1000,850,'2023-04-16 10:45:00',5,'ag@bidsy.com',1,NULL),(8,1100,900,'2023-04-17 13:30:00',10,'hk@bidsy.com',1,NULL);
 /*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `bidsy_employee` (
   `is_admin` tinyint(1) DEFAULT NULL,
   `user_id` varchar(30) NOT NULL,
   PRIMARY KEY (`user_id`),
-  CONSTRAINT `bidsy_employee_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`)
+  CONSTRAINT `bidsy_employee_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -105,7 +105,7 @@ CREATE TABLE `bidsy_user` (
 
 LOCK TABLES `bidsy_user` WRITE;
 /*!40000 ALTER TABLE `bidsy_user` DISABLE KEYS */;
-INSERT INTO `bidsy_user` VALUES ('admin','','','admin','',0,'admin',0,0,0),('Anubhav','G','285  George St','ag@bidsy.com','ag@bidsy.com',73232,'asdf',1234567890,12345678,1),('First','Employee','New Brunswick','emp1@bidsy.com','emp1@bidsy.com',1234,'sdfg',1234567894,12345678,0),('Hittishi','K','230','hk@bidsy.com','hk@bidsy.com',732322592,'asdf',1234567890,12345678,1),('Sowmiyanarayan','Selvam','285  George St','selvam@bidsy.com','selvam@bidsy.com',732322592,'12345',1234567,12345678,1),('Vijay','S','Vj NB','vj@bidsy.com','vj@bidsy.com',0,'gilma',1234567892,12345678,1);
+INSERT INTO `bidsy_user` VALUES ('admin','','','admin','',0,'admin',0,0,0),('Anubhav','G','285  George St','ag@bidsy.com','ag@bidsy.com',73232,'asdf',1234567890,12345678,1),('First','Employee','New Brunswick','emp1@bidsy.com','emp1@bidsy.com',1234,'sdfg',1234567894,12345678,0),('Hittishi','K','230','hk@bidsy.com','hk@bidsy.com',732322592,'asdf',1234567890,12345678,1),('Vijay','S','Vj NB','vj@bidsy.com','vj@bidsy.com',0,'gilma',1234567892,12345678,1);
 /*!40000 ALTER TABLE `bidsy_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `buyer` (
   `shipping_address` varchar(50) DEFAULT NULL,
   `user_id` varchar(30) NOT NULL,
   PRIMARY KEY (`user_id`),
-  CONSTRAINT `buyer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`)
+  CONSTRAINT `buyer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -174,8 +174,8 @@ CREATE TABLE `comments_inEditsContainsQnA` (
   PRIMARY KEY (`q_user_id`,`date_time`,`item_id`),
   KEY `a_user_id` (`a_user_id`),
   KEY `item_id` (`item_id`),
-  CONSTRAINT `comments_ineditscontainsqna_ibfk_1` FOREIGN KEY (`q_user_id`) REFERENCES `bidsy_user` (`user_id`),
-  CONSTRAINT `comments_ineditscontainsqna_ibfk_2` FOREIGN KEY (`a_user_id`) REFERENCES `bidsy_employee` (`user_id`),
+  CONSTRAINT `comments_ineditscontainsqna_ibfk_1` FOREIGN KEY (`q_user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comments_ineditscontainsqna_ibfk_2` FOREIGN KEY (`a_user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comments_ineditscontainsqna_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -234,7 +234,7 @@ DROP TABLE IF EXISTS `seller`;
 CREATE TABLE `seller` (
   `user_id` varchar(30) NOT NULL,
   PRIMARY KEY (`user_id`),
-  CONSTRAINT `seller_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`)
+  CONSTRAINT `seller_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -261,7 +261,7 @@ CREATE TABLE `sells` (
   `bid_increments` int DEFAULT NULL,
   PRIMARY KEY (`user_id`,`item_id`),
   KEY `item_id` (`item_id`),
-  CONSTRAINT `sells_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`),
+  CONSTRAINT `sells_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sells_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -312,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-20 23:30:08
+-- Dump completed on 2023-04-21  9:35:14

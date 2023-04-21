@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `bidsydb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `bidsydb`;
 -- MySQL dump 10.13  Distrib 8.0.29, for macos12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: bidsydb
@@ -30,11 +32,12 @@ CREATE TABLE `bids` (
   `increment_bid` int DEFAULT NULL,
   `user_id` varchar(30) DEFAULT NULL,
   `item_id` int DEFAULT NULL,
+  `isAutoBid` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`bid_id`),
   KEY `user_id` (`user_id`),
   KEY `item_id` (`item_id`),
   CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`),
-  CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`)
+  CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -44,7 +47,7 @@ CREATE TABLE `bids` (
 
 LOCK TABLES `bids` WRITE;
 /*!40000 ALTER TABLE `bids` DISABLE KEYS */;
-INSERT INTO `bids` VALUES (6,1200,800,'2023-04-15 14:20:00',10,'vj@bidsy.com',1),(7,1000,850,'2023-04-16 10:45:00',5,'ag@bidsy.com',1),(8,1100,900,'2023-04-17 13:30:00',10,'hk@bidsy.com',1),(9,1500,1000,'2023-04-18 16:15:00',20,'selvam@bidsy.com',1),(10,1800,1300,'2023-04-16 16:45:00',20,'vj@bidsy.com',2),(11,2000,1400,'2023-04-18 10:30:00',25,'ag@bidsy.com',2),(12,1700,1500,'2023-04-19 12:15:00',30,'hk@bidsy.com',2);
+INSERT INTO `bids` VALUES (6,1200,800,'2023-04-15 14:20:00',10,'vj@bidsy.com',1,NULL),(7,1000,850,'2023-04-16 10:45:00',5,'ag@bidsy.com',1,NULL),(8,1100,900,'2023-04-17 13:30:00',10,'hk@bidsy.com',1,NULL),(9,1500,1000,'2023-04-18 16:15:00',20,'selvam@bidsy.com',1,NULL);
 /*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +176,7 @@ CREATE TABLE `comments_inEditsContainsQnA` (
   KEY `item_id` (`item_id`),
   CONSTRAINT `comments_ineditscontainsqna_ibfk_1` FOREIGN KEY (`q_user_id`) REFERENCES `bidsy_user` (`user_id`),
   CONSTRAINT `comments_ineditscontainsqna_ibfk_2` FOREIGN KEY (`a_user_id`) REFERENCES `bidsy_employee` (`user_id`),
-  CONSTRAINT `comments_ineditscontainsqna_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `ItemClassifies` (`item_id`)
+  CONSTRAINT `comments_ineditscontainsqna_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -183,7 +186,7 @@ CREATE TABLE `comments_inEditsContainsQnA` (
 
 LOCK TABLES `comments_inEditsContainsQnA` WRITE;
 /*!40000 ALTER TABLE `comments_inEditsContainsQnA` DISABLE KEYS */;
-INSERT INTO `comments_inEditsContainsQnA` VALUES ('vj@bidsy.com',NULL,'2023-04-14 11:22:16',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:24:29',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:25:23',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:29:18',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:47:45',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:50:08',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:51:06',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:52:54',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:54:58',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:21',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:39',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:57:32',1,'Acer is good','');
+INSERT INTO `comments_inEditsContainsQnA` VALUES ('hk@bidsy.com',NULL,'2023-04-20 21:42:32',8,'Hit is good',NULL),('vj@bidsy.com','emp1@bidsy.com','2023-04-14 11:22:16',1,'Acer is good','ss4370'),('vj@bidsy.com','emp1@bidsy.com','2023-04-14 11:24:29',1,'Acer is good','ss4371'),('vj@bidsy.com',NULL,'2023-04-14 11:25:23',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:29:18',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:47:45',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:50:08',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:51:06',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:52:54',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:54:58',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:21',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:39',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:57:32',1,'Acer is good','');
 /*!40000 ALTER TABLE `comments_inEditsContainsQnA` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +220,7 @@ CREATE TABLE `itemClassifies` (
 
 LOCK TABLES `itemClassifies` WRITE;
 /*!40000 ALTER TABLE `itemClassifies` DISABLE KEYS */;
-INSERT INTO `itemClassifies` VALUES (1,1,'Acer Predator Helios 300',800,'Gaming Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',9,1),(1,2,'Dell XPS 13',1000,'Lightweight Ultrabook','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',12,3),(1,3,'HP EliteBook 840 G6',900,'Business Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,6),(1,4,'Lenovo Flex 5',600,'2-in-1 Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,4),(1,5,'Acer Aspire 5',400,'Budget Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,5),(1,6,'Dell XPS 17',2000,'High-End Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,6),(0,7,'Gaming Lap 2000',1200,'Good Condition','','2023-04-12 11:22:00','2023-04-15 11:22:00',0,4),(0,8,'Computer Good ',1200,'Good condition','','2023-04-05 11:24:00','2023-04-24 11:24:00',0,1),(0,9,'Computer Gamin 2000',1000,'Good condition. ','','2023-03-29 11:29:00','2023-04-24 11:29:00',0,1),(0,10,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3),(0,11,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3),(0,12,'Gamin lap 2000',1000,'Good ','','2023-04-12 11:54:00','2023-04-26 11:54:00',0,9),(0,13,'Gaming Laptop 2000',1200,'Good ','','2023-04-10 12:03:00','2023-04-14 12:03:00',0,7),(0,14,'Gamin Lap 2000',1200,'Good','','2023-04-12 12:04:00','2023-04-19 12:04:00',0,5),(50,15,'dfabdfb',1200,'asfvsfg nghnfb','vj@bidsy.com','2023-04-13 12:14:00','2023-04-27 12:14:00',0,5);
+INSERT INTO `itemClassifies` VALUES (1,1,'Acer Predator Helios 300',800,'Gaming Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',9,1),(1,4,'Lenovo Flex 5',600,'2-in-1 Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,4),(1,5,'Acer Aspire 5',400,'Budget Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,5),(1,6,'Dell XPS 17',2000,'High-End Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,6),(0,7,'Gaming Lap 2000',1200,'Good Condition','','2023-04-12 11:22:00','2023-04-15 11:22:00',0,4),(0,8,'Computer Good ',1200,'Good condition','','2023-04-05 11:24:00','2023-04-24 11:24:00',0,1),(0,9,'Computer Gamin 2000',1000,'Good condition. ','','2023-03-29 11:29:00','2023-04-24 11:29:00',0,1),(0,10,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3),(0,11,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3),(0,12,'Gamin lap 2000',1000,'Good ','','2023-04-12 11:54:00','2023-04-26 11:54:00',0,9),(0,13,'Gaming Laptop 2000',1200,'Good ','','2023-04-10 12:03:00','2023-04-14 12:03:00',0,7),(0,14,'Gamin Lap 2000',1200,'Good','','2023-04-12 12:04:00','2023-04-19 12:04:00',0,5),(50,15,'dfabdfb',1200,'asfvsfg nghnfb','vj@bidsy.com','2023-04-13 12:14:00','2023-04-27 12:14:00',0,5);
 /*!40000 ALTER TABLE `itemClassifies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +262,7 @@ CREATE TABLE `sells` (
   PRIMARY KEY (`user_id`,`item_id`),
   KEY `item_id` (`item_id`),
   CONSTRAINT `sells_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`),
-  CONSTRAINT `sells_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`)
+  CONSTRAINT `sells_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -309,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-18  0:00:18
+-- Dump completed on 2023-04-20 23:30:08

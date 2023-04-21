@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="user_landing.css">
-<title> List of bids</title>
+<title>List of bids</title>
 </head>
 <body>
 	<div class="user-dashboard">
@@ -23,12 +23,20 @@
 					<th>User ID:</th>
 					<th>Bidding Price:</th>
 					<th>Time of bid:</th>
-					<th>Edit</th>
-					<th>Delete</th>
+					<th>Delete Bid</th>
 				</tr>
 				<%
 				ApplicationDB ap = new ApplicationDB();
 				Connection con = ap.getConnection();
+				try{
+				if (request.getParameter("bid_id") != null && !request.getParameter("bid_id").isEmpty())
+				{
+					Statement stmt2 = con.createStatement();
+					String sql2 = "Delete from bids where bid_id ="+request.getParameter("bid_id")+";";
+					stmt2.execute(sql2);
+				}
+				} catch (SQLException e) {
+					e.printStackTrace();}
 				try {
 
 					Statement stmt = con.createStatement();
@@ -50,7 +58,8 @@
 						.append("<td>").append(user_id).append("</td>")
 						.append("<td>").append(String.valueOf(bidding_price))
 						.append("</td>").append("<td>")
-						.append(String.valueOf(bid_time)).append("</td></tr>");
+						.append(String.valueOf(bid_time)).append("</td><td>")
+						.append("<form method=\"post\" action = \"bidsList.jsp\"><input type=\"text\" name=\"bid_id\" class=\"no-outline\" value =\"").append(bid_id).append( "\"hidden>").append("<button onclick=\"return confirm('Are you sure you want to delete this bid?');\">Delete Bid</button></form></td></tr>");
 
 						out.print(str);
 					}

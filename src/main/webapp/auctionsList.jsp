@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="user_landing.css">
-<title>User Landing</title>
+<title>Auction List</title>
 </head>
 <body>
 
@@ -44,12 +44,20 @@
 					<th>Current Bidding Price:</th>
 					<th>Auction Duration:</th>
 					<th>View Product</th>
+					<th>Delete Product</th>
 				</tr>
 
 				<%
+
+				ApplicationDB ap = new ApplicationDB();
+				Connection con = ap.getConnection();
+				if (request.getParameter("item_id") != null && !request.getParameter("item_id").isEmpty())
+				{
+					Statement stmt2 = con.createStatement();
+					String sql2 = "Delete from itemClassifies where item_id ="+request.getParameter("item_id")+";";
+					stmt2.execute(sql2);
+				}
 				try {
-					ApplicationDB ap = new ApplicationDB();
-					Connection con = ap.getConnection();
 					Statement stmt = con.createStatement();
 					
 
@@ -82,8 +90,10 @@
 						.append("<td>").append(String.valueOf(starting_price)).append("</td>")
 						.append("<td>").append(String.valueOf(bidding_price)).append("</td>")
 						.append("<td>").append(String.valueOf(start_auction_time)).append(" to ").append(String.valueOf(end_auction_time)).append("</td>")
-						.append("<td>").append("<form method=\"post\" action = \"product.jsp\"><input type=\"text\" name=\"item_id\" class=\"no-outline\" value =\"").append(item_id).append( "\"hidden>")
-						.append("<a href=\"#\"><button>View Product</button></a>").append("</form>");
+						.append("<td>").append("<form method=\"post\" action = \"productEdit.jsp\"><input type=\"text\" name=\"item_id\" class=\"no-outline\" value =\"").append(item_id).append( "\"hidden>")
+						.append("<a href=\"productEdit.jsp\"><button>View Auction</button></a>").append("</form></td>")
+						.append("<td>").append("<form method=\"post\" action = \"auctionsList.jsp\"><input type=\"text\" name=\"item_id\" class=\"no-outline\" value =\"").append(item_id).append( "\"hidden>")
+						.append("<a href=\"auctionsList.jsp\"><button>Delete Auction</button></a>").append("</form></td>");
 	//create a product page with edit
 						out.print(str);
 						i++;

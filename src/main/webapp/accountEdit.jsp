@@ -11,23 +11,37 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="user_landing.css">
+<link rel="stylesheet" href="signup.css">
 <title>Edit Account</title>
 </head>
 <body>
 	<div class="user-dashboard">
 		<div class="form">
-			<table>
-				<tr>
-					<th></th>
-					<th></th>
-				</tr>
-
+			<form class="register-form" method="post" action='accountEdit.jsp'>
 				<%
-				CustomLogger.log(request.getParameter("user_id"));
 				String user_id = String.valueOf(request.getParameter("user_id"));
 				ApplicationDB ap = new ApplicationDB();
 				Connection con = ap.getConnection();
+				CustomLogger.log("first_name:" + request.getParameter("first_name"));
+				if (request.getParameter("first_name") != null && !request.getParameter("first_name").isEmpty()) {
+					PreparedStatement ps = con.prepareStatement(
+							"update bidsy_user set first_name = ?, last_name = ?, email= ?, telephone_no= ?, bank_acc_no= ?, routing_no= ? where user_id=?");
+							ps.setString(1, request.getParameter("first_name"));
+							ps.setString(2, request.getParameter("last_name"));
+							ps.setString(3, request.getParameter("email"));
+							ps.setString(4, request.getParameter("telephone_no"));
+							ps.setString(5, request.getParameter("bank_acc_no"));
+							ps.setString(6, request.getParameter("routing_no"));
+							ps.setString(7, user_id);
+
+							int x = ps.executeUpdate();
+							if (x > 0) {
+						CustomLogger.log("Updated Details");
+							}
+
+				}
+				
+				
 				try {
 
 					Statement stmt = con.createStatement();
@@ -48,18 +62,16 @@
 						
 						StringBuilder str = new StringBuilder();
 						
-						str.append("<tr><td>First Name:</td><td>").append(first_name).append("</td></tr>")
-						.append("<tr><td>Last Name:</td><td>").append(last_name).append("</td></tr>")
-						.append("<tr><td>Email:</td><td>").append(email).append("</td></tr>")
-						.append("<tr><td>Address:</td><td>").append(address).append("</td></tr>")
-						.append("<tr><td>Phone Number:</td><td>").append(telephone_no).append("</td></tr>")
-						.append("<tr><td>Bank Account Number:</td><td>").append(bank_acc_no).append("</td></tr>")
-						.append("<tr><td>Routing Number:</td><td>").append(routing_no).append("</td></tr>");
+						str.append("<input type = \"text\" name= \"user_id\" value=\"").append(user_id).append("\" hidden><br/>")
+						.append("<label>First Name:</label><input type = \"text\" name= \"first_name\" value=\"").append(first_name).append("\"><br/>")
+						.append("<label>Last Name:</label><input type = \"text\" name= \"last_name\" value=\"").append(last_name).append("\"><br/>")
+						.append("<label>Email:</label><input type = \"text\" name= \"email\" value=\"").append(email).append("\"><br/>")
+						.append("<label>Address:</label><input type = \"text\" name= \"address\" value=\"").append(address).append("\"><br/>")
+						.append("<label>Phone Number:</label><input type = \"text\" name= \"telephone_no\" value=\"").append(telephone_no).append("\"><br/>")
+						.append("<label>Bank Account Number:</label><input type = \"text\" name= \"bank_acc_no\" value=\"").append(bank_acc_no).append("\"><br/>")
+						.append("<label>Routing Number:</label><input type = \"text\" name= \"routing_no\" value=\"").append(routing_no).append("\"><br/>");
 
 						out.print(str);
-				%>
-			</table>
-			<%
 			}
 
 			} catch (SQLException e) {
@@ -68,6 +80,9 @@
 			ap.closeConnection(con);
 			}
 			%>
+
+				<button>Edit</button>
+			</form>
 		</div>
 	</div>
 </body>

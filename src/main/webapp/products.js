@@ -17,22 +17,25 @@ function autoBidOnChange() {
 }
 
 function bidFunctionality() {
-    const bidAmt = parseInt(document.getElementById("bidAmount").value);
-    const currBidAmt = parseInt(document.getElementById("currBiddingPrice").innerHTML);
+    const bidAmt = document.getElementById("bidAmount").value;
+    const currBidAmt = document.getElementById("currBiddingPrice").innerHTML;
     const item_Id = document.getElementById("item_id").value;
-    if (!bidAmt) {
+    if (!parseInt(bidAmt)) {
         alert("Please enter bid amount");
         return false;
     }
-    if (bidAmt < currBidAmt) {
-        alert("Your Bid Amount cannot be less than current bidding amount.");
+    if (parseInt(bidAmt) <= parseInt(currBidAmt)) {
+        alert("Your Bid Amount cannot be less than or equal to current bidding amount.");
         return false;
     }
     const anonymousCheckbox = document.getElementById("anonymousBid").checked;
     const enableAutoBid = document.getElementById("autoBid").checked;
-    const secretUpperLimit = parseInt(document.getElementById("secretUpperLimit").value);
-    const autoBidIncrement = parseInt(document.getElementById("autoBidIncrement").value);
-
+    const secretUpperLimit = document.getElementById("secretUpperLimit").value;
+    const autoBidIncrement = document.getElementById("autoBidIncrement").value;
+	if(enableAutoBid && (secretUpperLimit == "" ||  autoBidIncrement == "")){
+		alert("Please enter Secret Upper Limit and Auto Bid Increment fields.");
+        return false;
+	}
     var json_Payload = {
         "item_id": item_Id,
         "bid_Amt": bidAmt,
@@ -74,5 +77,6 @@ function bidFunctionality() {
      
 
     console.log(http_request.getResponseHeader("response"));
+    alert(http_request.getResponseHeader("response"));
 
 }

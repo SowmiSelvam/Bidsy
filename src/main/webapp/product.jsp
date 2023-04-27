@@ -32,7 +32,7 @@
 
 					Statement stmt = con.createStatement();
 					CustomLogger.log("item_id:" + request.getParameter("item_id"));
-					String sql = "select title, email, sub_category_index, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id  from itemClassifies where item_id ="
+					String sql = "select title, email, sub_category_index, itemDescription, item_id, ram, display_size, operating_system, processor, hdd, graphics, starting_price, start_auction_time, end_auction_time, bid_id  from itemClassifies where item_id ="
 					+ item_id + ";";
 
 					ResultSet rs = stmt.executeQuery(sql);
@@ -40,6 +40,12 @@
 					while (rs.next()) {
 						String title = rs.getString("title");
 						String itemDescription = rs.getString("itemDescription");
+						String ram = rs.getString("ram");
+						String operating_system = rs.getString("operating_system");
+						String processor = rs.getString("processor");
+						int hdd = rs.getInt("hdd");
+						String graphics = rs.getString("graphics");
+						float display_size = rs.getFloat("display_size");
 						Timestamp start_auction_time = rs.getTimestamp("start_auction_time");
 						Timestamp end_auction_time = rs.getTimestamp("end_auction_time");
 						int bid_id = rs.getInt("bid_id");
@@ -60,6 +66,12 @@
 
 						str.append("<tr><td>Title:</td><td>").append(title).append("</td></tr>")
 						.append("<tr><td>Item Description:</td><td>").append(itemDescription).append("</td></tr>")
+						.append("<tr><td>RAM:</td><td>").append(ram).append("</td></tr>")
+						.append("<tr><td>Operating System:</td><td>").append(operating_system).append("</td></tr>")
+						.append("<tr><td>Processor:</td><td>").append(processor).append("</td></tr>")
+						.append("<tr><td>HDD:</td><td>").append(hdd).append("</td></tr>")
+						.append("<tr><td>Graphics:</td><td>").append(graphics).append("</td></tr>")
+						.append("<tr><td>Display Size:</td><td>").append(display_size).append("</td></tr>")
 						.append("<tr><td>Starting Price:</td><td>").append(String.valueOf(starting_price)).append("</td></tr>")
 						.append("<tr><td>Current Bidding Price:</td><td id=").append("\"currBiddingPrice\">").append(String.valueOf(bidding_price))
 						.append("</td></tr>").append("<tr><td>Start Auction Time:</td><td>")

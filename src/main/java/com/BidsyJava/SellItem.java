@@ -38,6 +38,12 @@ public class SellItem extends HttpServlet {
         String secretMinPrice = request.getParameter("secretMinPrice");
         String bidIncrements = request.getParameter("bidIncrements");
         String userId = (String) session.getAttribute("user");
+        String ram = request.getParameter("ram");
+        String displaySize = request.getParameter("displaySize");
+        String operatingSystem = request.getParameter("operatingSystem");
+        String processor = request.getParameter("processor");
+        String hdd = request.getParameter("hdd");
+        String graphics = request.getParameter("graphics");
 
         // initialize database connection
         ApplicationDB ap = new ApplicationDB();
@@ -47,7 +53,9 @@ public class SellItem extends HttpServlet {
 
         // insert new item into itemClassifies table
         try {
-        	String query = "INSERT INTO itemClassifies (title, starting_price, itemDescription, email, start_auction_time, end_auction_time, sub_category_index, increment_bid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        	String query = "INSERT INTO itemClassifies (title, starting_price, itemDescription, email, start_auction_time, "
+        			+ "end_auction_time, sub_category_index, increment_bid, ram, display_size, operating_system, processor, hdd, graphics) "
+        			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(query);
             ps.setString(1, title);
             ps.setDouble(2, Double.parseDouble(startingPrice));
@@ -57,6 +65,13 @@ public class SellItem extends HttpServlet {
             ps.setString(6, endAuctionTime);
             ps.setInt(7, Integer.parseInt(subCategory));
             ps.setDouble(8, Double.parseDouble(bidIncrements));
+            ps.setString(9, ram);
+            ps.setFloat(10, Float.parseFloat(displaySize));
+            ps.setString(11, operatingSystem);
+            ps.setString(12, processor);
+            ps.setInt(13, Integer.parseInt(hdd));
+            ps.setString(14, graphics);
+            
             ps.executeUpdate();
             
             String query2 = "INSERT INTO sells (user_id, item_id, secret_min_price) VALUES (?, LAST_INSERT_ID(), ?)";

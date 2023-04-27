@@ -18,9 +18,9 @@
 </head>
 <body>
 	<div class="logout">
-			<label style="float: right" class="logoutLblPos">
-				<a href="user_landing.jsp"><button name="home">Home</button></a>
-			</label>
+		<label style="float: right" class="logoutLblPos"> <a
+			href="user_landing.jsp"><button name="home">Home</button></a>
+		</label>
 	</div>
 	<div class="container">
 		<h1 class="text-center">Sell Item</h1>
@@ -60,9 +60,69 @@
 					name="bidIncrements" required>
 			</div>
 			<div class="form-group">
+				<label for="ram">RAM:</label><select class="form-control" id="ram"
+					name="ram" required>
+					<option value="" selected disabled hidden>Select
+						RAM</option>
+					<option value="4 GB">4 GB</option>
+					<option value="8 GB">8 GB</option>
+					<option value="16 GB">16 GB</option>
+					<option value="32 GB">32 GB</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="displaySize">Display Size:</label> <input type="number"
+					step=0.1 class="form-control" id="displaySize" name="displaySize"
+					required>
+			</div>
+			<div class="form-group">
+				<label for="operatingSystem">Operating System:</label> <select class="form-control" id="operatingSystem"
+					name="operatingSystem" required>
+					<option value="" selected disabled hidden>Select
+						Operating System</option>
+					<option value="Windows 11">Windows 11</option>
+					<option value="Windows 10">Windows 10</option>
+					<option value="MacOS">MacOS</option>
+					<option value="Linux">Linux</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="processor">Processor:</label> <select class="form-control" id="processor"
+					name="processor" required>
+					<option value="" selected disabled hidden>Select
+						Processor</option>
+					<option value="Intel Core">Intel Core</option>
+					<option value="AMD Ryzen">AMD Ryzen</option>
+					<option value="M1">M1</option>
+					<option value="M2">M2</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="hdd">HDD Size:</label> <select class="form-control" id="hdd"
+					name="hdd" required>
+					<option value="" selected disabled hidden>Select
+						HDD</option>
+					<option value="256">256 GB</option>
+					<option value="512">512 GB</option>
+					<option value="1024">1024 GB</option>
+					<option value="2048">2048 GB</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="processor">Graphics:</label> <select class="form-control" id="graphics"
+					name="graphics" required>
+					<option value="" selected disabled hidden>Select
+						Graphics</option>
+					<option value="Nvidia">Nvidia</option>
+					<option value="Intel Graphics">Intel Graphics</option>
+					<option value="AMD">AMD</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<label for="subCategory">Subcategory:</label> <select
 					class="form-control" id="subCategory" name="subCategory" required>
-					<option value="" selected disabled hidden> Select subCategory</option>
+					<option value="" selected disabled hidden>Select
+						subCategory</option>
 					<%
 					try {
 						// get subcategories from the database

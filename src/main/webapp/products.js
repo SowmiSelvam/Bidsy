@@ -20,6 +20,8 @@ function bidFunctionality() {
     const bidAmt = document.getElementById("bidAmount").value;
     const currBidAmt = document.getElementById("currBiddingPrice").innerHTML;
     const item_Id = document.getElementById("item_id").value;
+    //add time passed check
+    
     if (!parseInt(bidAmt)) {
         alert("Please enter bid amount");
         return false;

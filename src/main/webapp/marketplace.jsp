@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="user_landing.css">
+<link rel="stylesheet" href="marketplace.css">
 <title>User Landing</title>
 </head>
 <body>
@@ -31,73 +31,59 @@
 		<%
 		String fname = (String) session.getAttribute("fname");
 		String lname = (String) session.getAttribute("lname");
-		out.print("<label style=\"float: left\" class = \"UserName\">Welcome " + fname + " " + lname + "</label>");
+		out.print("<label style=\"float: left\" class = \"username\">Welcome " + fname + " " + lname + "</label>");
 		%>
 	</div>
+	<div class="searchform">
+		<form action="marketplace.jsp" method="post">
 
+			<div class="form-group">
+				<label for="ram">RAM:</label><select class="form-control" id="ram"
+					name="ram">
+					<option value="" selected>Select RAM</option>
+					<option value="4 GB">4 GB</option>
+					<option value="8 GB">8 GB</option>
+					<option value="16 GB">16 GB</option>
+					<option value="32 GB">32 GB</option>
+				</select> <label for="displaySize">Select Display Size Less Than:</label> <input
+					type="number" step=0.1 class="form-control" id="displaySize"
+					name="displaySize"> <label for="operatingSystem">Operating
+					System:</label> <select class="form-control" id="operatingSystem"
+					name="operatingSystem">
+					<option value="" selected>Select Operating System</option>
+					<option value="Windows 11">Windows 11</option>
+					<option value="Windows 10">Windows 10</option>
+					<option value="MacOS">MacOS</option>
+					<option value="Linux">Linux</option>
+				</select> <label for="processor">Processor:</label> <select
+					class="form-control" id="processor" name="processor">
+					<option value="" selected>Select Processor</option>
+					<option value="Intel Core">Intel Core</option>
+					<option value="AMD Ryzen">AMD Ryzen</option>
+					<option value="M1">M1</option>
+					<option value="M2">M2</option>
+				</select> <label for="hdd">HDD Size:</label> <select class="form-control"
+					id="hdd" name="hdd">
+					<option value="" selected>Select HDD</option>
+					<option value="256">256 GB</option>
+					<option value="512">512 GB</option>
+					<option value="1024">1024 GB</option>
+					<option value="2048">2048 GB</option>
+				</select> <label for="processor">Graphics:</label> <select
+					class="form-control" id="graphics" name="graphics">
+					<option value="" selected>Select Graphics</option>
+					<option value="Nvidia">Nvidia</option>
+					<option value="Intel Graphics">Intel Graphics</option>
+					<option value="AMD">AMD</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary">Search</button>
+		</form>
+	</div>
 	<div class="user-dashboard">
-		<div class="searchform">
-			<form action="marketplace.jsp" method="post">
 
-				<div class="form-group">
-					<label for="ram">RAM:</label><select class="form-control" id="ram"
-						name="ram">
-						<option value="" selected>Select RAM</option>
-						<option value="4 GB">4 GB</option>
-						<option value="8 GB">8 GB</option>
-						<option value="16 GB">16 GB</option>
-						<option value="32 GB">32 GB</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="displaySize">Select Display Size Less Than:</label> <input
-						type="number" step=0.1 class="form-control" id="displaySize"
-						name="displaySize">
-				</div>
-				<div class="form-group">
-					<label for="operatingSystem">Operating System:</label> <select
-						class="form-control" id="operatingSystem" name="operatingSystem">
-						<option value="" selected>Select Operating System</option>
-						<option value="Windows 11">Windows 11</option>
-						<option value="Windows 10">Windows 10</option>
-						<option value="MacOS">MacOS</option>
-						<option value="Linux">Linux</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="processor">Processor:</label> <select
-						class="form-control" id="processor" name="processor">
-						<option value="" selected>Select Processor</option>
-						<option value="Intel Core">Intel Core</option>
-						<option value="AMD Ryzen">AMD Ryzen</option>
-						<option value="M1">M1</option>
-						<option value="M2">M2</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="hdd">HDD Size:</label> <select class="form-control"
-						id="hdd" name="hdd">
-						<option value="" selected>Select HDD</option>
-						<option value="256">256 GB</option>
-						<option value="512">512 GB</option>
-						<option value="1024">1024 GB</option>
-						<option value="2048">2048 GB</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="processor">Graphics:</label> <select
-						class="form-control" id="graphics" name="graphics">
-						<option value="" selected>Select Graphics</option>
-						<option value="Nvidia">Nvidia</option>
-						<option value="Intel Graphics">Intel Graphics</option>
-						<option value="AMD">AMD</option>
-					</select>
-				</div>
-				<button type="submit" class="btn btn-primary">Search</button>
-			</form>
-		</div>
 		<div class="form">
-			<table>
+			<table class="datatable">
 				<tr>
 					<th>Title:</th>
 					<th>Description:</th>
@@ -121,35 +107,35 @@
 
 					String ram = request.getParameter("ram");
 					String ramCondition = "";
-					if (!ram.isEmpty()) {
+					if (ram != null && !ram.isEmpty()) {
 						ramCondition = "and ram = '" + ram + "' ";
 					}
 					
 					String displaySize = request.getParameter("displaySize");
 					String dispSizeCondition = "";
-					if (!displaySize.isEmpty()) {
+					if (displaySize != null && !displaySize.isEmpty()) {
 						dispSizeCondition = "and display_size < " + displaySize + " ";
 					}
 					
 					String operatingSystem = request.getParameter("operatingSystem");
 					String osCondition = "";
-					if (!operatingSystem.isEmpty()) {
+					if (operatingSystem != null && !operatingSystem.isEmpty()) {
 						osCondition = "and operating_system = '" + operatingSystem + "' ";
 					}
 					String processor = request.getParameter("processor");
 					String procCondition = "";
-					if (!processor.isEmpty()) {
+					if (processor != null && !processor.isEmpty()) {
 						procCondition = "and processor = '" + processor + "' ";
 					}
 					String hdd = request.getParameter("hdd");
 					String hddCondition = "";
-					if (!hdd.isEmpty()) {
+					if (hdd != null && !hdd.isEmpty()) {
 						hddCondition = "and hdd = " + hdd + " ";
 					}
 
 					String graphics = request.getParameter("graphics");
 					String graphicsCondition = "";
-					if (!graphics.isEmpty()) {
+					if (graphics != null && !graphics.isEmpty()) {
 						graphicsCondition = "and graphics = " + graphics + " ";
 					}
 

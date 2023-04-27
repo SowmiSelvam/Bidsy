@@ -1,0 +1,125 @@
+@charset "UTF-8"; 
+
+.user-dashboard {
+	width: 80%;
+	padding: 1% 0 0;
+	margin: 0px 6% 0px;
+}
+
+.searchform {
+	position: relative;
+	z-index: 1;
+	background: #FFFFFF;
+	/* max-width: 800px; */
+	width: 75%;
+	height: 100%;
+	
+	margin: 100px auto 0px;
+	padding: 15px;
+	text-align: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
+		rgba(0, 0, 0, 0.24);
+	border-radius: 10px;
+}
+
+.form {
+	position: relative;
+	z-index: 1;
+	background: #FFFFFF;
+	/* max-width: 800px; */
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 45px;
+	text-align: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
+		rgba(0, 0, 0, 0.24);
+	border-radius: 10px;
+}
+.datatable{
+	width: 100%;
+}
+.username{
+	position: fixed;
+	top: 1%;
+	right: 81%; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	width: auto;
+	border: 0;
+	margin: 2% 0 2% 0%;
+	padding: 15px;
+	color: #000000;
+	font-size: 20px;
+}
+
+.logout button {
+	position: fixed;
+	top: 1%;
+	left: 53%; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.redirect{
+	position: fixed;
+	top: auto;
+	left: auto; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #376ca9;
+	width: auto;
+	border: 0;
+	margin: auto;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;	
+}
+
+.buy{
+	top: 18%;
+	left: 20%; 
+}
+
+.sell{
+	top: 18%;
+	left: 40%; 
+}
+
+.logout button:hover, .form button:active, .form button:focus {
+	background: #247b22;
+}
+
+body {
+	background: #10080800; /* fallback for old browsers */
+	background: -webkit-linear-gradient(right, #376ca9, #10080800);
+	background: -moz-linear-gradient(right, #376ca9, #10080800);
+	background: -o-linear-gradient(right, #376ca9, #10080800);
+	background: linear-gradient(to left, #376ca9, #10080800);
+	font-family: "Roboto", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	border-radius: 10px;
+}

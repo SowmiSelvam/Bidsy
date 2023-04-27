@@ -34,7 +34,68 @@
 		out.print("<label style=\"float: left\" class = \"UserName\">Welcome " + fname + " " + lname + "</label>");
 		%>
 	</div>
+
 	<div class="user-dashboard">
+		<div class="searchform">
+			<form action="marketplace.jsp" method="post">
+
+				<div class="form-group">
+					<label for="ram">RAM:</label><select class="form-control" id="ram"
+						name="ram">
+						<option value="" selected>Select RAM</option>
+						<option value="4 GB">4 GB</option>
+						<option value="8 GB">8 GB</option>
+						<option value="16 GB">16 GB</option>
+						<option value="32 GB">32 GB</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="displaySize">Select Display Size Less Than:</label> <input
+						type="number" step=0.1 class="form-control" id="displaySize"
+						name="displaySize">
+				</div>
+				<div class="form-group">
+					<label for="operatingSystem">Operating System:</label> <select
+						class="form-control" id="operatingSystem" name="operatingSystem">
+						<option value="" selected>Select Operating System</option>
+						<option value="Windows 11">Windows 11</option>
+						<option value="Windows 10">Windows 10</option>
+						<option value="MacOS">MacOS</option>
+						<option value="Linux">Linux</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="processor">Processor:</label> <select
+						class="form-control" id="processor" name="processor">
+						<option value="" selected>Select Processor</option>
+						<option value="Intel Core">Intel Core</option>
+						<option value="AMD Ryzen">AMD Ryzen</option>
+						<option value="M1">M1</option>
+						<option value="M2">M2</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="hdd">HDD Size:</label> <select class="form-control"
+						id="hdd" name="hdd">
+						<option value="" selected>Select HDD</option>
+						<option value="256">256 GB</option>
+						<option value="512">512 GB</option>
+						<option value="1024">1024 GB</option>
+						<option value="2048">2048 GB</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="processor">Graphics:</label> <select
+						class="form-control" id="graphics" name="graphics">
+						<option value="" selected>Select Graphics</option>
+						<option value="Nvidia">Nvidia</option>
+						<option value="Intel Graphics">Intel Graphics</option>
+						<option value="AMD">AMD</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>
+		</div>
 		<div class="form">
 			<table>
 				<tr>
@@ -51,9 +112,52 @@
 					ApplicationDB ap = new ApplicationDB();
 					Connection con = ap.getConnection();
 					Statement stmt = con.createStatement();
-					
+					String minPrice = "";
+					String maxPrice = "";
+					String priceCondition = "";
+					if (!(minPrice.isEmpty() && maxPrice.isEmpty())) {
+						priceCondition = "and between " + minPrice + " and " + maxPrice + " ";
+					}
 
-					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp();";
+					String ram = request.getParameter("ram");
+					String ramCondition = "";
+					if (!ram.isEmpty()) {
+						ramCondition = "and ram = '" + ram + "' ";
+					}
+					
+					String displaySize = request.getParameter("displaySize");
+					String dispSizeCondition = "";
+					if (!displaySize.isEmpty()) {
+						dispSizeCondition = "and display_size < " + displaySize + " ";
+					}
+					
+					String operatingSystem = request.getParameter("operatingSystem");
+					String osCondition = "";
+					if (!operatingSystem.isEmpty()) {
+						osCondition = "and operating_system = '" + operatingSystem + "' ";
+					}
+					String processor = request.getParameter("processor");
+					String procCondition = "";
+					if (!processor.isEmpty()) {
+						procCondition = "and processor = '" + processor + "' ";
+					}
+					String hdd = request.getParameter("hdd");
+					String hddCondition = "";
+					if (!hdd.isEmpty()) {
+						hddCondition = "and hdd = " + hdd + " ";
+					}
+
+					String graphics = request.getParameter("graphics");
+					String graphicsCondition = "";
+					if (!graphics.isEmpty()) {
+						graphicsCondition = "and graphics = " + graphics + " ";
+					}
+
+					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time,"
+					+ "end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp() "
+					+ priceCondition + ramCondition + osCondition + procCondition + hddCondition + graphicsCondition + ";";
+					CustomLogger.log(sql);
+
 					ResultSet rs = stmt.executeQuery(sql);
 					int i = 0;
 					// loop through the result set and create options for the select element
@@ -65,7 +169,7 @@
 						int bid_id = rs.getInt("bid_id");
 						int starting_price = rs.getInt("starting_price");
 						int item_id = rs.getInt("item_id");
-						
+
 						Statement stmt2 = con.createStatement();
 						String sql2 = "select bidding_price from bids where bid_id = " + bid_id + ";";
 						ResultSet rs2 = stmt2.executeQuery(sql2);
@@ -77,13 +181,14 @@
 						}
 						StringBuilder str = new StringBuilder();
 
-						str.append("<tr><td>").append(title).append("</td>")
-						.append("<td>").append(itemDescription).append("</td>")
-						.append("<td>").append(String.valueOf(starting_price)).append("</td>")
-						.append("<td>").append(String.valueOf(bidding_price)).append("</td>")
-						.append("<td>").append(String.valueOf(start_auction_time)).append(" to ").append(String.valueOf(end_auction_time)).append("</td>")
-						.append("<td>").append("<form method=\"post\" action = \"product.jsp\"><input type=\"text\" name=\"item_id\" class=\"no-outline\" value =\"").append(item_id).append( "\"hidden>")
-						.append("<a href=\"product.jsp\"><button>View Product</button></a>").append("</form>");
+						str.append("<tr><td>").append(title).append("</td>").append("<td>").append(itemDescription).append("</td>")
+						.append("<td>").append(String.valueOf(starting_price)).append("</td>").append("<td>")
+						.append(String.valueOf(bidding_price)).append("</td>").append("<td>")
+						.append(String.valueOf(start_auction_time)).append(" to ").append(String.valueOf(end_auction_time))
+						.append("</td>").append("<td>")
+						.append("<form method=\"post\" action = \"product.jsp\"><input type=\"text\" name=\"item_id\" class=\"no-outline\" value =\"")
+						.append(item_id).append("\"hidden>").append("<a href=\"product.jsp\"><button>View Product</button></a>")
+						.append("</form>");
 
 						out.print(str);
 						i++;

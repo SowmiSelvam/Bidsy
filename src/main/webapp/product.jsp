@@ -69,15 +69,14 @@
 						.append("<tr><td>RAM:</td><td>").append(ram).append("</td></tr>")
 						.append("<tr><td>Operating System:</td><td>").append(operating_system).append("</td></tr>")
 						.append("<tr><td>Processor:</td><td>").append(processor).append("</td></tr>")
-						.append("<tr><td>HDD:</td><td>").append(hdd).append("</td></tr>")
-						.append("<tr><td>Graphics:</td><td>").append(graphics).append("</td></tr>")
-						.append("<tr><td>Display Size:</td><td>").append(display_size).append("</td></tr>")
-						.append("<tr><td>Starting Price:</td><td>").append(String.valueOf(starting_price)).append("</td></tr>")
-						.append("<tr><td>Current Bidding Price:</td><td id=").append("\"currBiddingPrice\">").append(String.valueOf(bidding_price))
-						.append("</td></tr>").append("<tr><td>Start Auction Time:</td><td>")
-						.append(String.valueOf(start_auction_time)).append("</td></tr>")
-						.append("<tr><td>End Auction Time:</td><td>").append(String.valueOf(end_auction_time))
-						.append("</td></tr>");
+						.append("<tr><td>HDD:</td><td>").append(hdd).append("</td></tr>").append("<tr><td>Graphics:</td><td>")
+						.append(graphics).append("</td></tr>").append("<tr><td>Display Size:</td><td>").append(display_size)
+						.append("</td></tr>").append("<tr><td>Starting Price:</td><td>").append(String.valueOf(starting_price))
+						.append("</td></tr>").append("<tr><td>Current Bidding Price:</td><td id=")
+						.append("\"currBiddingPrice\">").append(String.valueOf(bidding_price)).append("</td></tr>")
+						.append("<tr><td>Start Auction Time:</td><td>").append(String.valueOf(start_auction_time))
+						.append("</td></tr>").append("<tr><td>End Auction Time:</td><td>")
+						.append(String.valueOf(end_auction_time)).append("</td></tr>");
 
 						out.print(str);
 				%>
@@ -85,21 +84,23 @@
 			<br />
 
 			<div>
-					<input name="bidAmount" id = "bidAmount" placeholder="Bid Amount" required>
-					<input type="checkbox" id="anonymousBid" name="anonymousBid">
-					<label for="anonymousBid">Bid Anonymous</label> <input
-						type="checkbox" id="autoBid" name="autoBid"> <label
-						for="autoBid">Enable Auto Bid</label>
-						<input name="secretUpperLimit" id = "secretUpperLimit" placeholder="Secret Upper Limit" disabled>
-						<input name="autoBidIncrement" id = "autoBidIncrement" placeholder="Auto Bid Increment" disabled>
-					<button id="bid">Bid</button>
+				<input name="bidAmount" id="bidAmount" placeholder="Bid Amount"
+					required> <input type="checkbox" id="anonymousBid"
+					name="anonymousBid"> <label for="anonymousBid">Bid
+					Anonymous</label> <input type="checkbox" id="autoBid" name="autoBid">
+				<label for="autoBid">Enable Auto Bid</label> <input
+					name="secretUpperLimit" id="secretUpperLimit"
+					placeholder="Secret Upper Limit" disabled> <input
+					name="autoBidIncrement" id="autoBidIncrement"
+					placeholder="Auto Bid Increment" disabled>
+				<button id="bid">Bid</button>
 			</div>
 			<br />
 			<div>
 				<form method="post">
-					<input type="text" value="<%=item_id%>" name="item_id" id="item_id" hidden /> <input
-						type="text" value="<%=email%>" name="email" hidden /> <input
-						type="text" value="<%=sub_category_index%>"
+					<input type="text" value="<%=item_id%>" name="item_id" id="item_id"
+						hidden /> <input type="text" value="<%=email%>" name="email"
+						hidden /> <input type="text" value="<%=sub_category_index%>"
 						name="sub_category_index" hidden /> <input type="submit"
 						value="History of Bids" formaction="bidHistory.jsp"> <input
 						type="submit" value="View Similar Items"
@@ -109,6 +110,13 @@
 			</div>
 
 			<div>
+				<form style="float: left" method="post" action="product.jsp">
+					<input type="text" value="<%=item_id%>" name="item_id" id="item_id"
+						hidden /> <input type="text" name="questionSearch"
+						id="questionSearch" />
+					<button>Search</button>
+				</form>
+				<br />
 				<table>
 					<tr>
 						<th>Questions</th>
@@ -130,13 +138,27 @@
 
 							}
 						}
-
+						String search = request.getParameter("questionSearch");
+						StringBuilder searchCondition = new StringBuilder("");
+						if (search != null && !search.isEmpty()) {
+							String[] keywords = search.split(" ");
+							int i = 0;
+							for(String temp:keywords){
+								if(i==0){
+									searchCondition.append(" and"); 
+								}else{
+									searchCondition.append(" or");
+								}
+								searchCondition.append(" question like '%"+temp+"%'");
+								i++;
+							}
+						}
 						Statement stmt3 = con.createStatement();
 						CustomLogger.log(String.valueOf(item_id));
-						String sql3 = "select question, answer from comments_inEditsContainsQnA where item_id =" + item_id + ";";
+						String sql3 = "select question, answer from comments_inEditsContainsQnA where item_id =" + item_id + searchCondition.toString()+ ";";
 						ResultSet rs3 = stmt3.executeQuery(sql3);
 						// loop through the result set and create options for the select element
-						
+
 						while (rs3.next()) {
 							String itemQuestion = rs3.getString("question");
 							CustomLogger.log(itemQuestion);

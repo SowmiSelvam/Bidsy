@@ -38,6 +38,17 @@
 		<form action="marketplace.jsp" method="post">
 
 			<div class="form-group">
+			<label for="ram">Sort by:</label><select class="form-control" id="sort"
+					name="sort">
+					<option value="" selected>Sort by</option>
+					<option value="1">Price(Ascending)</option>
+					<option value="2">Price(Descending)</option>
+					<option value="3">Auction Start time</option>
+					<option value="4">Auction End time</option>
+					<option value="5">Alphabetical(A-Z)</option>
+					<option value="6">Alphabetical(Z-A)</option>
+				</select>
+				
 				<label for="ram">RAM:</label><select class="form-control" id="ram"
 					name="ram">
 					<option value="" selected>Select RAM</option>
@@ -104,6 +115,30 @@
 					if (!(minPrice.isEmpty() && maxPrice.isEmpty())) {
 						priceCondition = "and between " + minPrice + " and " + maxPrice + " ";
 					}
+					
+					String sort = request.getParameter("sort");
+					String sortCondition = "";
+					if (sort != null && !sort.isEmpty()) {
+						if(sort.equalsIgnoreCase("1")){
+							sortCondition = " order by starting_price";
+						}
+						else if(sort.equalsIgnoreCase("2")){
+							sortCondition = " order by starting_price desc";
+						}
+						else if(sort.equalsIgnoreCase("3")){
+							sortCondition = " order by start_auction_time";
+						}
+						else if(sort.equalsIgnoreCase("4")){
+							sortCondition = " order by end_auction_time";
+						}
+						else if(sort.equalsIgnoreCase("5")){
+							sortCondition = " order by title";
+						}
+						else if(sort.equalsIgnoreCase("6")){
+							sortCondition = " order by title desc";
+						}
+						
+					}
 
 					String ram = request.getParameter("ram");
 					String ramCondition = "";
@@ -141,7 +176,7 @@
 
 					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time,"
 					+ "end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp() "
-					+ priceCondition + ramCondition + osCondition + procCondition + hddCondition + graphicsCondition + ";";
+					+ priceCondition + ramCondition + osCondition + procCondition + hddCondition + graphicsCondition +sortCondition+ ";";
 					CustomLogger.log(sql);
 
 					ResultSet rs = stmt.executeQuery(sql);

@@ -52,6 +52,31 @@ INSERT INTO `bids` VALUES (6,1200,800,'2023-04-15 14:20:00',10,'vj@bidsy.com',1,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `bids_alerts`
+--
+
+DROP TABLE IF EXISTS `bids_alerts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bids_alerts` (
+  `user_id` varchar(30) NOT NULL,
+  `alerts` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT `bids_alerts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bids_alerts`
+--
+
+LOCK TABLES `bids_alerts` WRITE;
+/*!40000 ALTER TABLE `bids_alerts` DISABLE KEYS */;
+INSERT INTO `bids_alerts` VALUES ('ag@bidsy.com','select title, itemDescription, item_id, starting_price, start_auction_time,end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp()  and starting_price < 1800  and operating_system in (\'Windows 11\', \'Windows 10\')  and processor in (\'Intel Core\', \'AMD Ryzen\')  and hdd in (1024) ;');
+/*!40000 ALTER TABLE `bids_alerts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `bidsy_employee`
 --
 
@@ -186,7 +211,7 @@ CREATE TABLE `comments_inEditsContainsQnA` (
 
 LOCK TABLES `comments_inEditsContainsQnA` WRITE;
 /*!40000 ALTER TABLE `comments_inEditsContainsQnA` DISABLE KEYS */;
-INSERT INTO `comments_inEditsContainsQnA` VALUES ('hk@bidsy.com',NULL,'2023-04-20 21:42:32',8,'Hit is good',NULL),('vj@bidsy.com','emp1@bidsy.com','2023-04-14 11:22:16',1,'Acer is good','ss4370'),('vj@bidsy.com','emp1@bidsy.com','2023-04-14 11:24:29',1,'Acer is good','ss4371'),('vj@bidsy.com',NULL,'2023-04-14 11:25:23',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:29:18',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:47:45',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:50:08',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:51:06',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:52:54',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:54:58',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:21',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:39',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:57:32',1,'Acer is good','');
+INSERT INTO `comments_inEditsContainsQnA` VALUES ('ag@bidsy.com',NULL,'2023-04-28 00:08:06',16,'Heatring ',NULL),('ag@bidsy.com',NULL,'2023-04-28 00:08:18',16,'cooling not good ',NULL),('ag@bidsy.com',NULL,'2023-04-28 00:09:03',16,'Awesome design',NULL),('ag@bidsy.com',NULL,'2023-04-28 00:09:15',16,'Carbon fibre is good',NULL),('hk@bidsy.com',NULL,'2023-04-20 21:42:32',8,'Hit is good',NULL),('vj@bidsy.com','emp1@bidsy.com','2023-04-14 11:22:16',1,'Acer is good','ss4370'),('vj@bidsy.com','emp1@bidsy.com','2023-04-14 11:24:29',1,'Acer is good','ss4371'),('vj@bidsy.com',NULL,'2023-04-14 11:25:23',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:29:18',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:47:45',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:50:08',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:51:06',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:52:54',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:54:58',1,'Acer is good 3',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:21',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:56:39',1,'Acer is good',''),('vj@bidsy.com',NULL,'2023-04-14 11:57:32',1,'Acer is good','');
 /*!40000 ALTER TABLE `comments_inEditsContainsQnA` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,10 +233,18 @@ CREATE TABLE `itemClassifies` (
   `end_auction_time` datetime DEFAULT NULL,
   `bid_id` int DEFAULT NULL,
   `sub_category_index` int DEFAULT NULL,
+  `ram` varchar(5) DEFAULT NULL,
+  `display_size` double(10,1) DEFAULT NULL,
+  `operating_system` varchar(20) DEFAULT NULL,
+  `processor` varchar(200) DEFAULT NULL,
+  `hdd` int DEFAULT NULL,
+  `graphics` varchar(200) DEFAULT NULL,
+  `is_auction_over` int DEFAULT NULL,
+  `winning_bid_id` int DEFAULT NULL,
   PRIMARY KEY (`item_id`),
   KEY `sub_category_index` (`sub_category_index`),
   CONSTRAINT `itemclassifies_ibfk_1` FOREIGN KEY (`sub_category_index`) REFERENCES `subcategoryBelongs` (`sub_category_index`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +253,7 @@ CREATE TABLE `itemClassifies` (
 
 LOCK TABLES `itemClassifies` WRITE;
 /*!40000 ALTER TABLE `itemClassifies` DISABLE KEYS */;
-INSERT INTO `itemClassifies` VALUES (1,1,'Acer Predator Helios 300',800,'Gaming Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',9,1),(1,4,'Lenovo Flex 5',600,'2-in-1 Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,4),(1,5,'Acer Aspire 5',400,'Budget Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,5),(1,6,'Dell XPS 17',2000,'High-End Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,6),(0,7,'Gaming Lap 2000',1200,'Good Condition','','2023-04-12 11:22:00','2023-04-15 11:22:00',0,4),(0,8,'Computer Good ',1200,'Good condition','','2023-04-05 11:24:00','2023-04-24 11:24:00',0,1),(0,9,'Computer Gamin 2000',1000,'Good condition. ','','2023-03-29 11:29:00','2023-04-24 11:29:00',0,1),(0,10,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3),(0,11,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3),(0,12,'Gamin lap 2000',1000,'Good ','','2023-04-12 11:54:00','2023-04-26 11:54:00',0,9),(0,13,'Gaming Laptop 2000',1200,'Good ','','2023-04-10 12:03:00','2023-04-14 12:03:00',0,7),(0,14,'Gamin Lap 2000',1200,'Good','','2023-04-12 12:04:00','2023-04-19 12:04:00',0,5),(50,15,'dfabdfb',1200,'asfvsfg nghnfb','vj@bidsy.com','2023-04-13 12:14:00','2023-04-27 12:14:00',0,5);
+INSERT INTO `itemClassifies` VALUES (1,1,'Acer Predator Helios 300',800,'Gaming Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',9,1,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(1,4,'Lenovo Flex 5',600,'2-in-1 Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,4,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(1,5,'Acer Aspire 5',400,'Budget Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,5,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(1,6,'Dell XPS 17',2000,'High-End Laptop','seller@example.com','2023-04-13 12:00:00','2023-04-20 12:00:00',0,6,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,7,'Gaming Lap 2000',1200,'Good Condition','','2023-04-12 11:22:00','2023-04-15 11:22:00',0,4,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,8,'Computer Good ',1200,'Good condition','','2023-04-05 11:24:00','2023-04-24 11:24:00',0,1,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,9,'Computer Gamin 2000',1000,'Good condition. ','','2023-03-29 11:29:00','2023-04-24 11:29:00',0,1,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,10,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,11,'Gaming Laptop 2000',1000,'Good Condition','','2023-04-06 11:51:00','2023-04-28 11:51:00',0,3,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,12,'Gamin lap 2000',1000,'Good ','','2023-04-12 11:54:00','2023-04-26 11:54:00',0,9,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,13,'Gaming Laptop 2000',1200,'Good ','','2023-04-10 12:03:00','2023-04-14 12:03:00',0,7,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(0,14,'Gamin Lap 2000',1200,'Good','','2023-04-12 12:04:00','2023-04-19 12:04:00',0,5,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(50,15,'dfabdfb',1200,'asfvsfg nghnfb','vj@bidsy.com','2023-04-13 12:14:00','2023-04-27 12:14:00',0,5,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL),(100,16,'Omen ',1200,'good heating ','ag@bidsy.com','2023-04-26 23:32:00','2023-05-02 23:32:00',NULL,7,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(120,17,'Alienware',1500,'good heavy','ag@bidsy.com','2023-04-04 23:47:00','2023-04-29 14:33:00',NULL,6,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(20,18,'Predator',1000,'cheap but problems ','ag@bidsy.com','2023-04-17 17:35:00','2023-05-26 23:41:00',NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `itemClassifies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,7 +296,7 @@ CREATE TABLE `sells` (
   KEY `item_id` (`item_id`),
   CONSTRAINT `sells_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `bidsy_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sells_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `itemClassifies` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,7 +305,7 @@ CREATE TABLE `sells` (
 
 LOCK TABLES `sells` WRITE;
 /*!40000 ALTER TABLE `sells` DISABLE KEYS */;
-INSERT INTO `sells` VALUES (1300,'vj@bidsy.com',14,NULL),(1500,'vj@bidsy.com',15,NULL);
+INSERT INTO `sells` VALUES (1300,'ag@bidsy.com',16,NULL),(1700,'ag@bidsy.com',17,NULL),(2000,'ag@bidsy.com',18,NULL),(1300,'vj@bidsy.com',14,NULL),(1500,'vj@bidsy.com',15,NULL);
 /*!40000 ALTER TABLE `sells` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,4 +345,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-21  9:35:14
+-- Dump completed on 2023-04-30  1:07:04

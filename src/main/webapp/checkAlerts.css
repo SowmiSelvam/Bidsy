@@ -29,7 +29,7 @@
 	/* max-width: 800px; */
 	width: 100%;
 	height: 100%;
-	margin: 0;
+	margin: 100px auto 0px;
 	padding: 45px;
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
@@ -55,6 +55,10 @@
 	font-size: 20px;
 }
 
+.tableHeader{
+	margin: 0px auto 10px;
+	float: left;
+}
 .logout button {
 	position: fixed;
 	top: 1%;
@@ -165,3 +169,4 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	border-radius: 10px;
 }
+

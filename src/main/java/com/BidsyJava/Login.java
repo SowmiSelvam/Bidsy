@@ -24,6 +24,8 @@ public class Login extends HttpServlet {
 		ApplicationDB apDB = new ApplicationDB();
 
 		try {
+			DeclareWinner.declareWinner();
+			
 			String uname = (String) request.getParameter("username");
 			String pass = (String) request.getParameter("password");
 			CustomLogger.log("Uname: "+uname);

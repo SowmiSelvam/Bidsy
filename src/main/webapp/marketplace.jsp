@@ -3,6 +3,8 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@ page import="main.java.com.BidsyJava.*"%>
+<%@ page import="main.java.com.BidsyJava.DeclareWinner"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -15,10 +17,15 @@
 </head>
 <body>
 
-	<div class="logout">
-		<label style="float: right" class="logoutLblPos"> <a
+	<div class="alert" style="float: right">
+		<a href='setAlerts.jsp'><button>set Alert</button></a>
+	</div>
+	<div class="home">
+		<label style="float: left" class="logoutLblPos"> <a
 			href="user_landing.jsp"><button name="home">Home</button></a>
 		</label>
+	</div>
+	<div class="logout">
 		<form name="form1" method="post" action="logout">
 			<label style="float: right" class="logoutLblPos">
 				<button name="logout">logout</button>
@@ -29,6 +36,7 @@
 
 	<div>
 		<%
+		DeclareWinner.declareWinner();
 		String fname = (String) session.getAttribute("fname");
 		String lname = (String) session.getAttribute("lname");
 		out.print("<label style=\"float: left\" class = \"username\">Welcome " + fname + " " + lname + "</label>");
@@ -38,8 +46,8 @@
 		<form action="marketplace.jsp" method="post">
 
 			<div class="form-group">
-			<label for="ram">Sort by:</label><select class="form-control" id="sort"
-					name="sort">
+				<label for="ram">Sort by:</label><select class="form-control"
+					id="sort" name="sort">
 					<option value="" selected>Sort by</option>
 					<option value="1">Price(Ascending)</option>
 					<option value="2">Price(Descending)</option>
@@ -47,9 +55,7 @@
 					<option value="4">Auction End time</option>
 					<option value="5">Alphabetical(A-Z)</option>
 					<option value="6">Alphabetical(Z-A)</option>
-				</select>
-				
-				<label for="ram">RAM:</label><select class="form-control" id="ram"
+				</select> <label for="ram">RAM:</label><select class="form-control" id="ram"
 					name="ram">
 					<option value="" selected>Select RAM</option>
 					<option value="4 GB">4 GB</option>
@@ -176,7 +182,7 @@
 
 					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time,"
 					+ "end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp() "
-					+ priceCondition + ramCondition + osCondition + procCondition + hddCondition + graphicsCondition +sortCondition+ ";";
+					+ priceCondition + ramCondition + dispSizeCondition + osCondition + procCondition + hddCondition + graphicsCondition +sortCondition+ ";";
 					CustomLogger.log(sql);
 
 					ResultSet rs = stmt.executeQuery(sql);

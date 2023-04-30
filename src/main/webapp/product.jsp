@@ -4,6 +4,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@ page import="main.java.com.BidsyJava.*"%>
 <%@ page import="main.java.com.BidsyJava.CustomLogger"%>
+<%@ page import="main.java.com.BidsyJava.DeclareWinner"%>
 
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,7 @@
 				</tr>
 
 				<%
+				DeclareWinner.declareWinner();
 				CustomLogger.log(request.getParameter("item_id"));
 				int item_id = Integer.valueOf(request.getParameter("item_id"));
 				ApplicationDB ap = new ApplicationDB();

@@ -63,5 +63,14 @@
         <servlet-name>bid</servlet-name>
         <url-pattern>/bid</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>setAlert</servlet-name>
+        <servlet-class>main.java.com.BidsyJava.SetAlert</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>setAlert</servlet-name>
+        <url-pattern>/setAlert</url-pattern>
+    </servlet-mapping>
     
 </web-app>

@@ -31,6 +31,9 @@
 			<div>
 				<a href="sell_item.jsp"><button class="redirect sell">Sell items</button></a>
 			</div>
+			<div>
+				<a href="checkAlerts.jsp"><button class="redirect sell">check Alerts</button></a>
+			</div>
 		</div>
 
 	</div>

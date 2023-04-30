@@ -3,6 +3,7 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@ page import="main.java.com.BidsyJava.*"%>
+<%@ page import="main.java.com.BidsyJava.DeclareWinner"%>
 
 <!DOCTYPE html>
 <html>
@@ -29,6 +30,7 @@
 
 	<div>
 		<%
+		DeclareWinner.declareWinner();
 		String fname = (String) session.getAttribute("fname");
 		String lname = (String) session.getAttribute("lname");
 		out.print("<label style=\"float: left\" class = \"UserName\">Welcome " + fname + " " + lname + "</label>");

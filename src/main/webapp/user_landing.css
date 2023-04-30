@@ -74,6 +74,11 @@
 	left: 40%; 
 }
 
+.check{
+	top: 18%;
+	left: 30%; 
+}
+
 .logout button:hover, .form button:active, .form button:focus {
 	background: #247b22;
 }

@@ -80,5 +80,5 @@ function bidFunctionality() {
 
     console.log(http_request.getResponseHeader("response"));
     alert(http_request.getResponseHeader("response"));
-
+	location.reload();
 }

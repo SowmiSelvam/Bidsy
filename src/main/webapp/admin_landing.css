@@ -6,6 +6,22 @@
 	margin: auto;
 }
 
+.searchform {
+	position: relative;
+	z-index: 1;
+	background: #FFFFFF;
+	/* max-width: 800px; */
+	width: 75%;
+	height: 100%;
+	
+	margin: 100px auto 0px;
+	padding: 15px;
+	text-align: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
+		rgba(0, 0, 0, 0.24);
+	border-radius: 10px;
+}
+
 .form {
 	position: relative;
 	z-index: 1;
@@ -13,12 +29,51 @@
 	/* max-width: 800px; */
 	width: 100%;
 	height: 100%;
-	margin: 0 auto 100px;
+	margin: 0;
 	padding: 45px;
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
 		rgba(0, 0, 0, 0.24);
 	border-radius: 10px;
+}
+.datatable{
+	width: 100%;
+}
+.username{
+	position: fixed;
+	top: 1%;
+	right: 81%; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	width: auto;
+	border: 0;
+	margin: 2% 0 2% 0%;
+	padding: 15px;
+	color: #000000;
+	font-size: 20px;
+}
+
+.back button {
+	position: fixed;
+	top: 1%;
+	left: 47%; display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;
 }
 
 .logout button {
@@ -40,6 +95,77 @@
 	cursor: pointer;
 	border-radius: 5px;
 	display: block;
+}
+
+.home button {
+	position: fixed;
+	top: 1%;
+	left: 30%; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.alert button {
+	position: fixed;
+	top: 1%;
+	left: 43%; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.redirect{
+	position: relative;
+	top: auto;
+	left: auto; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #376ca9;
+	border: 0;
+	margin: 10px auto 10px;;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.buy{
+	
+}
+
+.sell{
+
 }
 
 .logout button:hover, .form button:active, .form button:focus {

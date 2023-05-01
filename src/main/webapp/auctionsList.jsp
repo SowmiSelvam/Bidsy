@@ -16,10 +16,13 @@
 </head>
 <body>
 
-	<div class="logout">
-		<label style="float: right" class="logoutLblPos"> <a
-			href="user_landing.jsp"><button name="home">Home</button></a>
+
+		<div class="back">
+		<label> <a href="employee_landing.jsp"><button
+					name="back">Home</button></a>
 		</label>
+	</div>
+	<div class="logout">
 		<form name="form1" method="post" action="logout">
 			<label style="float: right" class="logoutLblPos">
 				<button name="logout">logout</button>

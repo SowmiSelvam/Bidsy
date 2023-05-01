@@ -66,7 +66,7 @@ public class Bid extends HttpServlet {
 		try {
 			PreparedStatement ps = null;
 
-			String query = "SELECT bid_id, secret_upper_price, bidding_price, bid_time, increment_bid,user_id,item_id, isAutoBid FROM bids where item_id = "+item_id+" order by secret_upper_price desc;";
+			String query = "SELECT bid_id, secret_upper_price, bidding_price, bid_time, increment_bid,user_id,item_id, isAutoBid FROM bids where item_id = "+item_id+" and isAutoBid = 1 order by secret_upper_price desc;";
 			ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 
@@ -91,91 +91,108 @@ public class Bid extends HttpServlet {
 				int second_Increment_Bid = rs.getInt("increment_bid");
 				String second_User_Id = rs.getString("user_id");
 				int second_Item_Id = rs.getInt("item_id");
-				
+
 				int temp_bid_price = first_bidding_price;
-				
+
 				while(temp_bid_price < second_secret_upper_price) {
 					temp_bid_price+=first_Increment_Bid;
 				}
 				if(temp_bid_price > first_secret_upper_price) {
 					temp_bid_price = first_secret_upper_price;
 				}
-				
+
 				String update_Max_Bid1 = "Update bids set bidding_price = "+temp_bid_price+", bid_time = CURRENT_TIMESTAMP where bid_id = "+first_BidId+";";
 				PreparedStatement ps2 = conn.prepareStatement(update_Max_Bid1);
-				
-				
+
+
 				String update_Bids = "Update bids set bidding_price = secret_upper_price, bid_time = CURRENT_TIMESTAMP where item_id = "+item_id+"  and isAutoBid = 1 and NOT bid_id = "+first_BidId+";";
 				PreparedStatement ps3 = conn.prepareStatement(update_Bids);
 				ps3.executeUpdate();
 				ps2.executeUpdate();
 			}
-			
+
 			String update_Items_Table = "Update itemClassifies set bid_id = "+first_BidId+" where item_id = "+item_id+";";
 			PreparedStatement ps4 = conn.prepareStatement(update_Items_Table);
 			ps4.executeUpdate();
-			
+
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public static void autoIncrementFunctionality_ManualBid(Connection conn, String item_id, String bid_Amt, String user_id) {
 		try {
+			CustomLogger.log("Inside Manual Auto bid");
 			PreparedStatement ps = null;
 
-			String query = "SELECT bid_id, secret_upper_price, bidding_price, bid_time, increment_bid,user_id,item_id, isAutoBid FROM bids where item_id = "+item_id+" order by secret_upper_price desc;";
+			String query = "SELECT bid_id, secret_upper_price, bidding_price, bid_time, increment_bid,user_id,item_id, isAutoBid FROM bids where item_id = "+item_id+" and isAutoBid = 1 order by secret_upper_price desc;";
 			ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 
-			rs.next();
-			int first_secret_upper_price = rs.getInt("secret_upper_price");
-			int first_BidId = rs.getInt("bid_id");
-			CustomLogger.log("first_BidId: "+ first_BidId);
-			int first_bidding_price = rs.getInt("bidding_price");
-			CustomLogger.log("first_bidding_price: "+ first_bidding_price);
-			Date first_bid_time = rs.getDate("bid_time"); 
-			int first_Increment_Bid = rs.getInt("increment_bid");
-			String first_User_Id = rs.getString("user_id");
-			int first_Item_Id = rs.getInt("item_id");
-			
-			
-			if(first_secret_upper_price > Integer.valueOf(bid_Amt)) {
-				int temp_bid_price = first_bidding_price;
-				
-				while(temp_bid_price < Integer.valueOf(bid_Amt)) {
-					temp_bid_price+=first_Increment_Bid;
+			if(rs.next()) {
+				int first_secret_upper_price = rs.getInt("secret_upper_price");
+				int first_BidId = rs.getInt("bid_id");
+				CustomLogger.log("first_BidId: "+ first_BidId);
+				int first_bidding_price = rs.getInt("bidding_price");
+				CustomLogger.log("first_bidding_price: "+ first_bidding_price);
+				Date first_bid_time = rs.getDate("bid_time"); 
+				int first_Increment_Bid = rs.getInt("increment_bid");
+				String first_User_Id = rs.getString("user_id");
+				int first_Item_Id = rs.getInt("item_id");
+
+
+				if(first_secret_upper_price > Integer.valueOf(bid_Amt)) {
+					CustomLogger.log("Inside if");
+					int temp_bid_price = first_bidding_price;
+
+					while(temp_bid_price < Integer.valueOf(bid_Amt)) {
+						temp_bid_price+=first_Increment_Bid;
+					}
+					if(temp_bid_price > first_secret_upper_price) {
+						temp_bid_price = first_secret_upper_price;
+					}
+					String update_Max_Bid1 = "Update bids set bidding_price = "+temp_bid_price+", bid_time = CURRENT_TIMESTAMP where bid_id = "+first_BidId+";";
+					PreparedStatement ps2 = conn.prepareStatement(update_Max_Bid1);
+
+
+					String update_Bids = "Update bids set bidding_price = secret_upper_price, bid_time = CURRENT_TIMESTAMP where item_id = "+item_id+"  and isAutoBid = 1 and NOT bid_id = "+first_BidId+";";
+					PreparedStatement ps3 = conn.prepareStatement(update_Bids);
+					ps3.executeUpdate();
+					ps2.executeUpdate();
+
+					String update_Items_Table = "Update itemClassifies set bid_id = "+first_BidId+" where item_id = "+item_id+";";
+					PreparedStatement ps4 = conn.prepareStatement(update_Items_Table);
+					ps4.executeUpdate();
+
+				}else {
+					CustomLogger.log("Inside else");
+					String getBidIDQuery = "Select bid_id from bids where item_id = "+item_id+" and user_id = '"+user_id+"';";
+					PreparedStatement ps5 = conn.prepareStatement(getBidIDQuery);
+					ResultSet rs5 = ps5.executeQuery();
+					rs5.next();
+					int bid_id = rs5.getInt(1);
+
+					String update_Items_Table = "Update itemClassifies set bid_id = "+bid_id+" where item_id = "+item_id+";";
+					PreparedStatement ps4 = conn.prepareStatement(update_Items_Table);
+					ps4.executeUpdate();
 				}
-				if(temp_bid_price > first_secret_upper_price) {
-					temp_bid_price = first_secret_upper_price;
-				}
-				String update_Max_Bid1 = "Update bids set bidding_price = "+temp_bid_price+", bid_time = CURRENT_TIMESTAMP where bid_id = "+first_BidId+";";
-				PreparedStatement ps2 = conn.prepareStatement(update_Max_Bid1);
-				
-				
-				String update_Bids = "Update bids set bidding_price = secret_upper_price, bid_time = CURRENT_TIMESTAMP where item_id = "+item_id+"  and isAutoBid = 1 and NOT bid_id = "+first_BidId+";";
-				PreparedStatement ps3 = conn.prepareStatement(update_Bids);
-				ps3.executeUpdate();
-				ps2.executeUpdate();
-		
-				String update_Items_Table = "Update itemClassifies set bid_id = "+first_BidId+" where item_id = "+item_id+";";
-				PreparedStatement ps4 = conn.prepareStatement(update_Items_Table);
-				ps4.executeUpdate();
-				
-			}else {
-				String getBidIDQuery = "Select bid_id from bids where item_id = "+item_id+" and user_id = "+user_id+";";
+			}
+			else {
+				CustomLogger.log("Inside else");
+				String getBidIDQuery = "Select bid_id from bids where item_id = "+item_id+" and user_id = '"+user_id+"';";
 				PreparedStatement ps5 = conn.prepareStatement(getBidIDQuery);
 				ResultSet rs5 = ps5.executeQuery();
+				rs5.next();
 				int bid_id = rs5.getInt(1);
-				
+
 				String update_Items_Table = "Update itemClassifies set bid_id = "+bid_id+" where item_id = "+item_id+";";
 				PreparedStatement ps4 = conn.prepareStatement(update_Items_Table);
 				ps4.executeUpdate();
 			}
 		}catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 
@@ -201,18 +218,18 @@ public class Bid extends HttpServlet {
 		return false;
 	}
 
-	private static void executeBidInsert(Connection conn, String secretUpperLimit, String bid_Amt, String autoBidIncrement, String user_id, String item_id, int isAutoBid) {
+	private static void executeBidInsert(Connection conn, String secretUpperLimit, String bid_Amt, String autoBidIncrement, String user_id, String item_id, int isAutoBid, boolean isAnonymous) {
 		try { 
 			if(checkBidPresent(conn, user_id, item_id)) {
 				//update bid
 				PreparedStatement ps = null;
 				java.sql.Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
-				
+
 				//String query = "INSERT INTO bids(secret_upper_price,bidding_price,bid_time,increment_bid,user_id,item_id, is_AutoBid) VALUES(?, ?, ?, ?, ?, ?, ?)"; 
-				String query = "Update bids set secret_upper_price = ?, bidding_price = ?, bid_time = ?, increment_bid = ?, isAutoBid = ? where user_id = ? and item_id = ?;";
+				String query = "Update bids set secret_upper_price = ?, bidding_price = ?, bid_time = ?, increment_bid = ?, isAutoBid = ?, isAnonymous = ? where user_id = ? and item_id = ?;";
 				ps = conn.prepareStatement(query);
 
-				
+
 				if(secretUpperLimit.isEmpty()) {
 					ps.setNull(1, Types.NULL);
 				}else {
@@ -229,11 +246,16 @@ public class Bid extends HttpServlet {
 				}else {
 					ps.setInt(4, Integer.parseInt(autoBidIncrement));
 				}
-				
+
 				ps.setInt(5, isAutoBid);
-				ps.setString(6, user_id);
-				ps.setInt(7, Integer.parseInt(item_id));
-				
+				if(isAnonymous) {
+					ps.setInt(6, 1);
+				}else {
+					ps.setInt(6, 0);
+				}
+				ps.setString(7, user_id);
+				ps.setInt(8, Integer.parseInt(item_id));
+
 				ps.executeUpdate();
 
 			}else {
@@ -241,7 +263,7 @@ public class Bid extends HttpServlet {
 				java.sql.Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 				PreparedStatement ps = null;
 
-				String query = "INSERT INTO bids(secret_upper_price,bidding_price,bid_time,increment_bid,user_id,item_id, isAutoBid) VALUES(?, ?, ?, ?, ?, ?, ?)"; 
+				String query = "INSERT INTO bids(secret_upper_price,bidding_price,bid_time,increment_bid,user_id,item_id, isAutoBid, isAnonymous) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 				ps = conn.prepareStatement(query);
 				if(secretUpperLimit.isEmpty()) {
@@ -260,10 +282,15 @@ public class Bid extends HttpServlet {
 				}else {
 					ps.setInt(4, Integer.parseInt(autoBidIncrement));
 				}
-				
+
 				ps.setString(5, user_id);
 				ps.setInt(6, Integer.parseInt(item_id));
 				ps.setInt(7, isAutoBid);
+				if(isAnonymous) {
+					ps.setInt(8, 1);
+				}else {
+					ps.setInt(8, 0);
+				}
 				ps.executeUpdate();
 			}
 			if(isAutoBid == 1) {
@@ -271,8 +298,8 @@ public class Bid extends HttpServlet {
 			}else {
 				autoIncrementFunctionality_ManualBid(conn, item_id, bid_Amt ,user_id);
 			}
-			
-			
+
+
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -306,11 +333,8 @@ public class Bid extends HttpServlet {
 			}
 
 			String user_id = (String)session.getAttribute("user");
-			if(isAnonymous) {
-				user_id = "Anonymous_User";
-			}
 
-			executeBidInsert(conn, secretUpperLimit, bid_Amt, autoBidIncrement, user_id, item_id, isAutoBidInt);
+			executeBidInsert(conn, secretUpperLimit, bid_Amt, autoBidIncrement, user_id, item_id, isAutoBidInt, isAnonymous);
 
 			String alertString = "Bid Submitted Successfully";
 			response.setHeader("response", alertString);

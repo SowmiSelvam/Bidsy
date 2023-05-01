@@ -16,9 +16,6 @@
 <title>set Alerts</title>
 </head>
 <body>
-	<div class="alert" style="float: right">
-		<a href='marketplace.jsp'><button>back</button></a>
-	</div>
 	<div class="home">
 		<label style="float: left" class="logoutLblPos"> <a
 			href="user_landing.jsp"><button name="home">Home</button></a>
@@ -176,7 +173,11 @@
 					<th>View Product</th>
 				</tr>
 				<%
-				String manual_Outbid_Query = "select itemClassifies.title, itemClassifies.itemDescription, itemClassifies.item_id, itemClassifies.starting_price, itemClassifies.start_auction_time, itemClassifies.end_auction_time, itemClassifies.bid_id  from itemClassifies, bids where itemClassifies.bid_id = bids.bid_id and itemClassifies.end_auction_time > NOW() and bids.isAutoBid = 0 and bids.user_id != '"+user_id+"';";
+				String manual_Outbid_Query = "select i.title, i.itemDescription, i.item_id, i.starting_price, "
+						+"i.start_auction_time, i.end_auction_time, i.bid_id  from itemClassifies i, bids b where " 
+						+"i.bid_id = b.bid_id and i.end_auction_time > NOW() and b.isAutoBid = 0 and b.user_id != '"+user_id+
+						"' and (select count(1) from bids b2 where b2.item_id = b.item_id and user_id = '"+user_id+"')>0;";
+				CustomLogger.log(manual_Outbid_Query);
 				PreparedStatement ps3 = con.prepareStatement(manual_Outbid_Query);
 				ResultSet rs4 = ps3.executeQuery();
 				while (rs4.next()) {
@@ -189,7 +190,8 @@
 					int item_id = rs4.getInt("item_id");
 
 					Statement stmt2 = con.createStatement();
-					String sql2 = "select bidding_price from bids where bid_id = " + bid_id + ";";
+					String sql2 = "select bidding_price, user_id from bids where bid_id = " + bid_id + ";";
+					CustomLogger.log(sql2);
 					ResultSet rs2 = stmt2.executeQuery(sql2);
 
 					int bidding_price = 0;
@@ -201,6 +203,7 @@
 					
 					Statement stmt3 = con.createStatement();
 					String sql3 = "select bidding_price from bids where user_id = '" + user_id + "' and item_id = "+item_id+";";
+					CustomLogger.log(sql3);
 					ResultSet rs6 = stmt2.executeQuery(sql3);
 					int currUserBidAmt = 0;
 					while(rs6.next()){
@@ -244,7 +247,12 @@
 					<th>View Product</th>
 				</tr>
 				<%
-				String auto_Outbid_Query = "select itemClassifies.title, itemClassifies.itemDescription, itemClassifies.item_id, itemClassifies.starting_price, itemClassifies.start_auction_time, itemClassifies.end_auction_time, itemClassifies.bid_id  from itemClassifies, bids where itemClassifies.bid_id = bids.bid_id and itemClassifies.end_auction_time > NOW() and bids.isAutoBid = 1 and bids.user_id != '"+user_id+"';";
+				String auto_Outbid_Query = "select i.title, i.itemDescription, i.item_id, i.starting_price, "
+						+"i.start_auction_time, i.end_auction_time, i.bid_id  from itemClassifies i, bids b where " 
+						+"i.bid_id = b.bid_id and i.end_auction_time > NOW() and b.isAutoBid = 1 and b.user_id != '"+user_id+
+						"' and (select count(1) from bids b2 where b2.item_id = b.item_id and user_id = '"+user_id+"')>0;";
+				CustomLogger.log(manual_Outbid_Query);
+				CustomLogger.log(auto_Outbid_Query);
 				PreparedStatement ps4 = con.prepareStatement(auto_Outbid_Query);
 				ResultSet rs5 = ps4.executeQuery();
 				while (rs5.next()) {
@@ -258,6 +266,7 @@
 
 					Statement stmt2 = con.createStatement();
 					String sql2 = "select bidding_price, user_id from bids where bid_id = " + bid_id + ";";
+					CustomLogger.log(sql2);
 					ResultSet rs2 = stmt2.executeQuery(sql2);
 
 					int bidding_price = 0;
@@ -269,6 +278,7 @@
 					
 					Statement stmt3 = con.createStatement();
 					String sql3 = "select bidding_price from bids where user_id = '" + user_id + "' and item_id = "+item_id+";";
+					CustomLogger.log(sql3);
 					ResultSet rs6 = stmt2.executeQuery(sql3);
 					int currUserBidAmt = 0;
 					while(rs6.next()){

@@ -44,6 +44,90 @@
   cursor: pointer;
   border-radius: 5px;
 }
+
+.logout button {
+	position: fixed;
+	top: 1%;
+	left: 53%; display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;
+}
+
+.back button {
+	position: fixed;
+	top: 1%;
+	left: 47%; display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;
+}
+
+.redirect{
+	position: fixed;
+	top: auto;
+	left: auto; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #376ca9;
+	width: auto;
+	border: 0;
+	margin: auto;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;	
+}
+
+.buy{
+	top: 18%;
+	left: 20%; 
+}
+
+.sell{
+	top: 18%;
+	left: 40%; 
+}
+
+.check{
+	top: 18%;
+	left: 30%; 
+}
+
+.logout button:hover, .form button:active, .form button:focus {
+	background: #247b22;
+}
+
 .form button:hover,.form button:active,.form button:focus {
   background: #244a76;
 }

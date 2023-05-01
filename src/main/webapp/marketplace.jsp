@@ -181,7 +181,8 @@
 					}
 
 					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time,"
-					+ "end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp() "
+					+ "end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp() and start_auction_time < current_timestamp() "
+					+" and email not like '"+ session.getAttribute("user")+"' "
 					+ priceCondition + ramCondition + dispSizeCondition + osCondition + procCondition + hddCondition + graphicsCondition +sortCondition+ ";";
 					CustomLogger.log(sql);
 

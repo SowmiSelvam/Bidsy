@@ -135,7 +135,8 @@ public class SetAlert extends HttpServlet {
 			}
 
 			String alertQuery = "select title, itemDescription, item_id, starting_price, start_auction_time,"
-					+ "end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp() "
+					+ "end_auction_time, bid_id  from itemClassifies where end_auction_time > current_timestamp() and start_auction_time < current_timestamp() "
+					+" and email not like \\'"+ uname +"\\' "
 					+ maxPriceCond + ramCond.toString() + dispSizeCond + osCond.toString() + procCond.toString() + hddCond.toString() + graphicsCond.toString() + ";";
 			
 			CustomLogger.log(alertQuery);

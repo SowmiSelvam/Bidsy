@@ -16,6 +16,23 @@
 <title>Bid History</title>
 </head>
 <body>
+<%				int item_id = Integer.valueOf(request.getParameter("item_id"));%>
+	<div class="back">
+	<form name="form1" method="post" action="product.jsp">
+		<label>
+		<input type="text" name="item_id" class="no-outline" value ="<%=item_id%>" hidden>
+		<a href="product.jsp"><button
+					name="back">Back</button></a>
+		</label>
+		</form>
+	</div>
+	<div class="logout">
+		<form name="form1" method="post" action="logout">
+			<label style="float: right" class="logoutLblPos">
+				<button name="logout">logout</button>
+			</label>
+		</form>
+	</div>
 	<div class="user-dashboard">
 		<div class="form">
 			<table>
@@ -28,13 +45,13 @@
 				<%
 				DeclareWinner.declareWinner();
 				CustomLogger.log(request.getParameter("item_id"));
-				int item_id = Integer.valueOf(request.getParameter("item_id"));
+
 				ApplicationDB ap = new ApplicationDB();
 				Connection con = ap.getConnection();
 				try {
 
 					Statement stmt = con.createStatement();
-					String sql = "SELECT bid_id, bidding_price, bid_time, user_id FROM bids where item_id ="
+					String sql = "SELECT bid_id, bidding_price, bid_time, user_id, isAnonymous FROM bids where item_id ="
 					+ item_id + ";";
 
 					ResultSet rs = stmt.executeQuery(sql);
@@ -44,7 +61,10 @@
 						int bid_id = rs.getInt("bid_id");
 						String user_id = rs.getString("user_id");
 						int bidding_price = rs.getInt("bidding_price");
-
+						int isAnonymous = rs.getInt("isAnonymous");
+						if(isAnonymous == 1){
+							user_id = "Anonymous_User";
+						}
 						
 						
 						StringBuilder str = new StringBuilder();

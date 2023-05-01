@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="admin_landing.css">
+<link rel="stylesheet" href="user_landing.css">
 <title>Admin Landing</title>
 </head>
 <body>
@@ -19,14 +19,23 @@
 		</form>
 	</div>
 
-	<div class="admin-dashboard">
+	<div class="user-dashboard">
 		<div class="form">
-			<%
-			out.print("Welcome Admin");
-			%>
 			<div>
-					<a href="employee_register.jsp"><button name="EmployeeRegister">Register an Employee</button></a>
+				<%
+				out.print("Welcome Admin");
+				%>
 			</div>
+			<div>
+				<a href="employee_register.jsp"><button class="redirect"
+						name="EmployeeRegister">Register an Employee</button></a>
+			</div>
+
+			<div>
+				<a href="salesReport.jsp"><button class="redirect"
+						name="GenerateSalesReport">Generate Sales Report</button></a>
+			</div>
+
 		</div>
 	</div>
 </body>

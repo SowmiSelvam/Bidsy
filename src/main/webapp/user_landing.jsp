@@ -20,11 +20,12 @@
 
 	<div class="user-dashboard">
 		<div class="form">
-			<%
+		<div>			<%
 			String fname = (String) session.getAttribute("fname");
 			String lname = (String) session.getAttribute("lname");
 			out.print("Welcome " + fname + " " + lname);
 			%>
+			</div>
 			<div>
 				<a href="marketplace.jsp"><button class="redirect buy">Buy items</button></a>
 			</div>

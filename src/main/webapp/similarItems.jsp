@@ -10,15 +10,22 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="user_landing.css">
+<link rel="stylesheet" href="marketplace.css">
 <title>Similar Items</title>
 </head>
 <body>
 
-	<div class="logout">
-		<label style="float: right" class="logoutLblPos"> <a
-			href="user_landing.jsp"><button name="home">Home</button></a>
+<%				int prod_item_id = Integer.valueOf(request.getParameter("item_id"));%>
+	<div class="back">
+	<form name="form1" method="post" action="product.jsp">
+		<label>
+		<input type="text" name="item_id" class="no-outline" value ="<%=prod_item_id%>" hidden>
+		<a href="product.jsp"><button
+					name="back">Back</button></a>
 		</label>
+		</form>
+	</div>
+	<div class="logout">
 		<form name="form1" method="post" action="logout">
 			<label style="float: right" class="logoutLblPos">
 				<button name="logout">logout</button>
@@ -26,13 +33,16 @@
 		</form>
 	</div>
 
-
 	<div>
 		<%
 		String fname = (String) session.getAttribute("fname");
 		String lname = (String) session.getAttribute("lname");
 		out.print("<label style=\"float: left\" class = \"UserName\">Welcome " + fname + " " + lname + "</label>");
 		%>
+	</div>
+	<div>
+	<br>
+	<br>
 	</div>
 	<div class="user-dashboard">
 		<div class="form">
@@ -54,7 +64,9 @@
 					Statement stmt = con.createStatement();
 					
 
-					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id  from itemClassifies where sub_category_index ="+sub_category_index+";";
+					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id "
+							+"from itemClassifies where end_auction_time > current_timestamp() and start_auction_time < current_timestamp() "+
+							"and sub_category_index = "+sub_category_index+" and email not like '"+ session.getAttribute("user")+"';";
 					ResultSet rs = stmt.executeQuery(sql);
 					int i = 0;
 					// loop through the result set and create options for the select element

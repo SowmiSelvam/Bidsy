@@ -16,10 +16,17 @@
 </head>
 <body>
 
-	<div class="logout">
-		<label style="float: right" class="logoutLblPos"> <a
-			href="user_landing.jsp"><button name="home">Home</button></a>
+<%				int prod_item_id = Integer.valueOf(request.getParameter("item_id"));%>
+	<div class="back">
+	<form name="form1" method="post" action="product.jsp">
+		<label>
+		<input type="text" name="item_id" class="no-outline" value ="<%=prod_item_id%>" hidden>
+		<a href="product.jsp"><button
+					name="back">Back</button></a>
 		</label>
+		</form>
+	</div>
+	<div class="logout">
 		<form name="form1" method="post" action="logout">
 			<label style="float: right" class="logoutLblPos">
 				<button name="logout">logout</button>
@@ -27,10 +34,10 @@
 		</form>
 	</div>
 
-
 	<div>
 		<%
 		DeclareWinner.declareWinner();
+		String sellerUserId = request.getParameter("email");
 		String fname = (String) session.getAttribute("fname");
 		String lname = (String) session.getAttribute("lname");
 		out.print("<label style=\"float: left\" class = \"UserName\">Welcome " + fname + " " + lname + "</label>");
@@ -56,8 +63,10 @@
 				
 				try {
 					Statement stmt = con.createStatement();
-
-					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id from itemClassifies where item_id in(select item_id from bids where user_id="+"\""+user_id+"\""+");";
+					
+					
+					
+					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id from itemClassifies where item_id in(select item_id from bids where user_id='"+sellerUserId+"');";
 					CustomLogger.log(sql);
 					ResultSet rs = stmt.executeQuery(sql);
 					int i = 0;
@@ -102,7 +111,7 @@
 		</div>
 		
 		<div class="form">
-		<label><b>Items the Seller has sold</b></label>
+		<label><b>Items the Seller has sold or placed for auction</b></label>
 			<table>
 				<tr>
 					<th>Title:</th>
@@ -118,7 +127,7 @@
 					Statement stmt = con.createStatement();
 					
 
-					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id  from itemClassifies where item_id in(select item_id from sells where user_id="+"\""+user_id+"\""+");";
+					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time, end_auction_time, bid_id  from itemClassifies where item_id in(select item_id from sells where user_id='"+sellerUserId+"');";
 					CustomLogger.log(sql);
 					ResultSet rs = stmt.executeQuery(sql);
 					int i = 0;

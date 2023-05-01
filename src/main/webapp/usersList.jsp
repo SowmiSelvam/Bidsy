@@ -15,10 +15,12 @@
 </head>
 <body>
 
-	<div class="logout">
-		<label style="float: right" class="logoutLblPos"> <a
-			href="user_landing.jsp"><button name="home">Home</button></a>
+	<div class="back">
+		<label> <a href="employee_landing.jsp"><button
+					name="back">Home</button></a>
 		</label>
+	</div>
+	<div class="logout">
 		<form name="form1" method="post" action="logout">
 			<label style="float: right" class="logoutLblPos">
 				<button name="logout">logout</button>
@@ -41,8 +43,8 @@
 					<th>First Name:</th>
 					<th>Last Name:</th>
 					<th>Email Address:</th>
-					<th>Phone Number:</th>
 					<th>Address:</th>
+					<th>Phone Number:</th>
 					<th>Account Number:</th>
 					<th>Routing Number:</th>
 					<th>Edit User:</th>
@@ -74,9 +76,9 @@
 						String address = rs.getString("address");
 						String email = rs.getString("email");
 						String user_id = rs.getString("user_id");
-						int telephone_no = rs.getInt("telephone_no");
-						int bank_acc_no = rs.getInt("bank_acc_no");
-						int routing_no = rs.getInt("routing_no");
+						String telephone_no = rs.getString("telephone_no");
+						String bank_acc_no = rs.getString("bank_acc_no");
+						String routing_no = rs.getString("routing_no");
 						
 						StringBuilder str = new StringBuilder();
 
@@ -90,7 +92,7 @@
 						.append("<td>").append("<form method=\"post\" action = \"accountEdit.jsp\"><input type=\"text\" name=\"user_id\" class=\"no-outline\" value =\"").append(user_id).append( "\"hidden>")
 						.append("<a href=\"accountEdit.jsp\"><button>Edit User</button></a>").append("</form></td>")
 						.append("<td>").append("<form method=\"post\" action = \"usersList.jsp\"><input type=\"text\" name=\"user_id\" class=\"no-outline\" value =\"").append(user_id).append( "\"hidden>")
-						.append("<a href=\"usersList.jsp\"><button>Delete Auction</button></a>").append("</form></td>");
+						.append("<a href=\"usersList.jsp\"><button>Delete User</button></a>").append("</form></td>");
 
 						out.print(str);
 						i++;

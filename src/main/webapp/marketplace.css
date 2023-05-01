@@ -30,7 +30,7 @@
 	width: 100%;
 	height: 100%;
 	margin: 0;
-	padding: 45px;
+	padding: 35px;
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
 		rgba(0, 0, 0, 0.24);
@@ -56,7 +56,7 @@
 }
 
 .logout button {
-	position: fixed;
+	position: relative;
 	top: 1%;
 	left: 53%; 
 	display : block;
@@ -76,8 +76,29 @@
 	border-radius: 5px;
 }
 
+.back button {
+	position: relative;
+	top: 1%;
+	left: 47%;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;
+}
+
 .home button {
-	position: fixed;
+	position: relative;
 	top: 1%;
 	left: 30%; 
 	display : block;

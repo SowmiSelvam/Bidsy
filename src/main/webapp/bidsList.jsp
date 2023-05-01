@@ -15,6 +15,18 @@
 <title>List of bids</title>
 </head>
 <body>
+	<div class="back">
+		<label> <a href="employee_landing.jsp"><button
+					name="back">Home</button></a>
+		</label>
+	</div>
+	<div class="logout">
+		<form name="form1" method="post" action="logout">
+			<label style="float: right" class="logoutLblPos">
+				<button name="logout">logout</button>
+			</label>
+		</form>
+	</div>
 	<div class="user-dashboard">
 		<div class="form">
 			<table>

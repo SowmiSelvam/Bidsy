@@ -16,6 +16,18 @@
 <title>Product</title>
 </head>
 <body>
+	<div class="back">
+		<label> <a href="marketplace.jsp"><button
+					name="back">Back</button></a>
+		</label>
+	</div>
+	<div class="logout">
+		<form name="form1" method="post" action="logout">
+			<label style="float: right" class="logoutLblPos">
+				<button name="logout">logout</button>
+			</label>
+		</form>
+	</div>
 	<div class="user-dashboard">
 		<div class="form">
 			<table>
@@ -78,7 +90,8 @@
 						.append("\"currBiddingPrice\">").append(String.valueOf(bidding_price)).append("</td></tr>")
 						.append("<tr><td>Start Auction Time:</td><td>").append(String.valueOf(start_auction_time))
 						.append("</td></tr>").append("<tr><td>End Auction Time:</td><td>")
-						.append(String.valueOf(end_auction_time)).append("</td></tr>");
+						.append(String.valueOf(end_auction_time)).append("</td></tr>").append("<tr><td>Seller:</td><td>").append(email)
+						.append("</td></tr>");
 
 						out.print(str);
 				%>

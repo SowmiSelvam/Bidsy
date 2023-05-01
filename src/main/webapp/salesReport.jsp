@@ -39,6 +39,7 @@
 				</tr>
 				<%
 				try {
+					DeclareWinner.declareWinner();
 					String user_id = (String) session.getAttribute("user");
 					ApplicationDB ap = new ApplicationDB();
 					Connection con = ap.getConnection();
@@ -73,7 +74,8 @@
 					<th>Earnings:</th>
 				</tr>
 				<%
-				String winningBidsQuery = "select i.title, i.itemDescription, i.email, i.winning_bid_id, (select bidding_price b from bids where b.bid_id = i.winning_bid_id) earnings from itemClassifies i, bids b where is_auction_over = 1 and i.winning_bid_id is not null;";
+				String winningBidsQuery = "select distinct i.title, i.itemDescription, i.email, i.winning_bid_id, (select bidding_price from bids b where b.bid_id = i.winning_bid_id) earnings from itemClassifies i, bids b where is_auction_over = 1 and i.winning_bid_id is not null;";
+				CustomLogger.log(winningBidsQuery);
 				PreparedStatement ps2 = con.prepareStatement(winningBidsQuery);
 				ResultSet rs3 = ps2.executeQuery();
 				while (rs3.next()) {
@@ -107,7 +109,8 @@
 					<th>Earnings:</th>
 				</tr>
 				<%
-				String itemTypeQuery = "Select i.sub_category_index, sum(b.bidding_price) earnings, (Select s.sub_category_name from subcategoryBelongs s where s.sub_category_index = i.sub_category_index) sub_category_name from bids b, itemClassifies i where b.bid_id in (select i2.winning_bid_id from itemClassifies i2 where i2.winning_bid_id is NOT null) group by i.sub_category_index;";
+				String itemTypeQuery = "Select distinct i.sub_category_index, sum(b.bidding_price) earnings, (Select s.sub_category_name from subcategoryBelongs s where s.sub_category_index = i.sub_category_index) sub_category_name from bids b, itemClassifies i where b.bid_id in (select i2.winning_bid_id from itemClassifies i2 where i2.winning_bid_id is NOT null) and i.is_auction_over = 1 and i.winning_bid_id = b.bid_id group by i.sub_category_index;";
+				CustomLogger.log(itemTypeQuery);
 				PreparedStatement ps3 = con.prepareStatement(itemTypeQuery);
 				ResultSet rs4 = ps3.executeQuery();
 				while (rs4.next()) {
@@ -117,7 +120,7 @@
 
 					StringBuilder str3 = new StringBuilder();
 
-					str3.append("<tr><td>").append(title).append("</td>").append("<td>").append(String.valueOf(earnings))
+					str3.append("<tr><td>").append(itemDescription).append("</td>").append("<td>").append(String.valueOf(earnings))
 					.append("</td></tr>");
 
 					out.print(str3);
@@ -138,7 +141,8 @@
 					<th>Earnings:</th>
 				</tr>
 				<%
-				String perUserQuery = "Select i.email, sum(b.bidding_price) earnings from bids b, itemClassifies i where b.bid_id = i.winning_bid_id group by i.email;";
+				String perUserQuery = "Select distinct i.email, sum(b.bidding_price) earnings from bids b, itemClassifies i where b.bid_id = i.winning_bid_id group by i.email;";
+				CustomLogger.log(perUserQuery);
 				PreparedStatement ps4 = con.prepareStatement(perUserQuery);
 				ResultSet rs5 = ps4.executeQuery();
 				while (rs5.next()) {
@@ -168,7 +172,8 @@
 					<th>Number of Items Sold:</th>
 				</tr>
 				<%
-				String bestSellingItemsQuery = "Select i.sub_category_index, count(1) number_of_items_sold, (Select s.sub_category_name from subcategoryBelongs s where s.sub_category_index = i.sub_category_index) sub_category_name from bids b, itemClassifies i where b.bid_id in (select i2.winning_bid_id from itemClassifies i2 where i2.winning_bid_id is NOT null) group by i.sub_category_index order by number_of_items_sold desc;";
+				String bestSellingItemsQuery = "Select i.sub_category_index, count(1) number_of_items_sold, (Select s.sub_category_name from subcategoryBelongs s where s.sub_category_index = i.sub_category_index) sub_category_name from bids b, itemClassifies i where b.bid_id in (select i2.winning_bid_id from itemClassifies i2 where i2.winning_bid_id is NOT null) and i.is_auction_over = 1 and i.winning_bid_id = b.bid_id group by i.sub_category_index order by number_of_items_sold desc;";
+				CustomLogger.log(bestSellingItemsQuery);
 				PreparedStatement ps5 = con.prepareStatement(bestSellingItemsQuery);
 				ResultSet rs6 = ps5.executeQuery();
 				while (rs6.next()) {
@@ -178,7 +183,7 @@
 
 					StringBuilder str3 = new StringBuilder();
 
-					str3.append("<tr><td>").append(title).append("</td>").append("<td>").append(String.valueOf(number_of_items_sold))
+					str3.append("<tr><td>").append(itemDescription).append("</td>").append("<td>").append(String.valueOf(number_of_items_sold))
 					.append("</td></tr>");
 
 					out.print(str3);
@@ -200,6 +205,7 @@
 				</tr>
 				<%
 				String bestBuyerQuery = "Select i.email, count(1) num_items_bought from bids b, itemClassifies i where b.bid_id = i.winning_bid_id group by i.email order by num_items_bought desc;";
+				CustomLogger.log(bestBuyerQuery);
 				PreparedStatement ps6 = con.prepareStatement(bestBuyerQuery);
 				ResultSet rs7 = ps6.executeQuery();
 				while (rs7.next()) {

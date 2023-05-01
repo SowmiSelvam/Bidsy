@@ -5,6 +5,7 @@
 <%@ page import="main.java.com.BidsyJava.*"%>
 <%@ page import="main.java.com.BidsyJava.CustomLogger"%>
 <%@ page import="main.java.com.BidsyJava.DeclareWinner"%>
+<%@ page import="java.time.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -17,8 +18,7 @@
 </head>
 <body>
 	<div class="back">
-		<label> <a href="marketplace.jsp"><button
-					name="back">Back</button></a>
+		<label> <a href="marketplace.jsp"><button name="back">Back</button></a>
 		</label>
 	</div>
 	<div class="logout">
@@ -42,6 +42,7 @@
 				int item_id = Integer.valueOf(request.getParameter("item_id"));
 				ApplicationDB ap = new ApplicationDB();
 				Connection con = ap.getConnection();
+				Timestamp end_auction_time;
 				try {
 
 					Statement stmt = con.createStatement();
@@ -61,7 +62,7 @@
 						String graphics = rs.getString("graphics");
 						float display_size = rs.getFloat("display_size");
 						Timestamp start_auction_time = rs.getTimestamp("start_auction_time");
-						Timestamp end_auction_time = rs.getTimestamp("end_auction_time");
+						end_auction_time = rs.getTimestamp("end_auction_time");
 						int bid_id = rs.getInt("bid_id");
 						int starting_price = rs.getInt("starting_price");
 						String email = rs.getString("email");
@@ -89,14 +90,19 @@
 						.append("</td></tr>").append("<tr><td>Current Bidding Price:</td><td id=")
 						.append("\"currBiddingPrice\">").append(String.valueOf(bidding_price)).append("</td></tr>")
 						.append("<tr><td>Start Auction Time:</td><td>").append(String.valueOf(start_auction_time))
-						.append("</td></tr>").append("<tr><td>End Auction Time:</td><td>")
-						.append(String.valueOf(end_auction_time)).append("</td></tr>").append("<tr><td>Seller:</td><td>").append(email)
-						.append("</td></tr>");
+						.append("</td></tr>").append("<tr><td>End Auction Time:</td><td id=\"endAuctionTime\">")
+						.append(String.valueOf(end_auction_time)).append("</td></tr>").append("<tr><td>Seller:</td><td>")
+						.append(email).append("</td></tr>");
 
 						out.print(str);
 				%>
 			</table>
 			<br />
+			<%
+			if (end_auction_time.compareTo(Timestamp.from(Instant.now())) >0) {
+				
+			
+			%>
 
 			<div>
 				<input name="bidAmount" id="bidAmount" placeholder="Bid Amount"
@@ -110,6 +116,7 @@
 					placeholder="Auto Bid Increment" disabled>
 				<button id="bid">Bid</button>
 			</div>
+			<%} %>
 			<br />
 			<div>
 				<form method="post">
@@ -158,19 +165,20 @@
 						if (search != null && !search.isEmpty()) {
 							String[] keywords = search.split(" ");
 							int i = 0;
-							for(String temp:keywords){
-								if(i==0){
-									searchCondition.append(" and"); 
-								}else{
-									searchCondition.append(" or");
-								}
-								searchCondition.append(" question like '%"+temp+"%'");
-								i++;
+							for (String temp : keywords) {
+						if (i == 0) {
+							searchCondition.append(" and");
+						} else {
+							searchCondition.append(" or");
+						}
+						searchCondition.append(" question like '%" + temp + "%'");
+						i++;
 							}
 						}
 						Statement stmt3 = con.createStatement();
 						CustomLogger.log(String.valueOf(item_id));
-						String sql3 = "select question, answer from comments_inEditsContainsQnA where item_id =" + item_id + searchCondition.toString()+ ";";
+						String sql3 = "select question, answer from comments_inEditsContainsQnA where item_id =" + item_id
+						+ searchCondition.toString() + ";";
 						ResultSet rs3 = stmt3.executeQuery(sql3);
 						// loop through the result set and create options for the select element
 

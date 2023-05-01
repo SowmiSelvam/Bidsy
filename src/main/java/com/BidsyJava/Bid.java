@@ -94,7 +94,7 @@ public class Bid extends HttpServlet {
 
 				int temp_bid_price = first_bidding_price;
 
-				while(temp_bid_price < second_secret_upper_price) {
+				while(temp_bid_price <= second_secret_upper_price) {
 					temp_bid_price+=first_Increment_Bid;
 				}
 				if(temp_bid_price > first_secret_upper_price) {
@@ -147,7 +147,7 @@ public class Bid extends HttpServlet {
 					CustomLogger.log("Inside if");
 					int temp_bid_price = first_bidding_price;
 
-					while(temp_bid_price < Integer.valueOf(bid_Amt)) {
+					while(temp_bid_price <= Integer.valueOf(bid_Amt)) {
 						temp_bid_price+=first_Increment_Bid;
 					}
 					if(temp_bid_price > first_secret_upper_price) {

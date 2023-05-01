@@ -118,6 +118,7 @@
 				<%
 				String winningBidsQuery = "select itemClassifies.title, itemClassifies.itemDescription, itemClassifies.item_id, itemClassifies.starting_price, itemClassifies.start_auction_time, itemClassifies.end_auction_time, itemClassifies.winning_bid_id  from itemClassifies, bids where itemClassifies.winning_bid_id = bids.bid_id and bids.user_id = '"
 						+ user_id + "';";
+				CustomLogger.log(winningBidsQuery);
 				PreparedStatement ps2 = con.prepareStatement(winningBidsQuery);
 				ResultSet rs3 = ps2.executeQuery();
 				while (rs3.next()) {
@@ -125,12 +126,13 @@
 					String itemDescription = rs3.getString("itemDescription");
 					Timestamp start_auction_time = rs3.getTimestamp("start_auction_time");
 					Timestamp end_auction_time = rs3.getTimestamp("end_auction_time");
-					int bid_id = rs3.getInt("bid_id");
+					int bid_id = rs3.getInt("winning_bid_id");
 					int starting_price = rs3.getInt("starting_price");
 					int item_id = rs3.getInt("item_id");
 
 					Statement stmt2 = con.createStatement();
 					String sql2 = "select bidding_price from bids where bid_id = " + bid_id + ";";
+					CustomLogger.log(sql2);
 					ResultSet rs2 = stmt2.executeQuery(sql2);
 
 					int bidding_price = 0;
@@ -175,7 +177,7 @@
 				<%
 				String manual_Outbid_Query = "select i.title, i.itemDescription, i.item_id, i.starting_price, "
 						+"i.start_auction_time, i.end_auction_time, i.bid_id  from itemClassifies i, bids b where " 
-						+"i.bid_id = b.bid_id and i.end_auction_time > NOW() and b.isAutoBid = 0 and b.user_id != '"+user_id+
+						+"i.bid_id = b.bid_id and i.end_auction_time > NOW() and (select b2.isAutoBid from bids b2 where b2.item_id = b.item_id and user_id = '"+user_id+"') = 0 and b.user_id != '"+user_id+
 						"' and (select count(1) from bids b2 where b2.item_id = b.item_id and user_id = '"+user_id+"')>0;";
 				CustomLogger.log(manual_Outbid_Query);
 				PreparedStatement ps3 = con.prepareStatement(manual_Outbid_Query);
@@ -249,7 +251,7 @@
 				<%
 				String auto_Outbid_Query = "select i.title, i.itemDescription, i.item_id, i.starting_price, "
 						+"i.start_auction_time, i.end_auction_time, i.bid_id  from itemClassifies i, bids b where " 
-						+"i.bid_id = b.bid_id and i.end_auction_time > NOW() and b.isAutoBid = 1 and b.user_id != '"+user_id+
+						+"i.bid_id = b.bid_id and i.end_auction_time > NOW() and (select b2.isAutoBid from bids b2 where b2.item_id = b.item_id and user_id = '"+user_id+"')= 1 and b.user_id != '"+user_id+
 						"' and (select count(1) from bids b2 where b2.item_id = b.item_id and user_id = '"+user_id+"')>0;";
 				CustomLogger.log(manual_Outbid_Query);
 				CustomLogger.log(auto_Outbid_Query);

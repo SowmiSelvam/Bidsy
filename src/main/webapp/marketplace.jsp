@@ -177,7 +177,7 @@
 					String graphics = request.getParameter("graphics");
 					String graphicsCondition = "";
 					if (graphics != null && !graphics.isEmpty()) {
-						graphicsCondition = "and graphics = " + graphics + " ";
+						graphicsCondition = "and graphics = '" + graphics + "' ";
 					}
 
 					String sql = "select title, itemDescription, item_id, starting_price, start_auction_time,"

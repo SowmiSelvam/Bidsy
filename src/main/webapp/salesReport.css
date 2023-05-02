@@ -5,7 +5,13 @@
 	padding: 1% 0 0;
 	margin: 0px 6% 0px;
 }
-
+.logout-div{
+	position: fixed;
+	z-index:1;
+	width: 100%;
+	padding: 1% 0 0;
+	margin: 0px 6% 0px;
+}
 .searchform {
 	position: relative;
 	z-index: 1;
@@ -29,8 +35,8 @@
 	/* max-width: 800px; */
 	width: 100%;
 	height: 100%;
-	margin: 100px auto 0px;
-	padding: 45px;
+	margin: 0;
+	padding: 35px;
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
 		rgba(0, 0, 0, 0.24);
@@ -55,15 +61,10 @@
 	font-size: 20px;
 }
 
-.tableHeader{
-	margin: 0px auto 10px;
-	float: left;
-}
 .logout button {
 	position: fixed;
 	top: 1%;
-	left: 53%; 
-	display : block;
+	left: 53%; display : block;
 	font-family: "Roboto", sans-serif;
 	text-transform: uppercase;
 	outline: 0;
@@ -78,12 +79,34 @@
 	transition: all 0.3 ease;
 	cursor: pointer;
 	border-radius: 5px;
+	display: block;
+}
+
+.back button {
+	position: fixed;
+	top: 1%;
+	left: 47%; display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;
 }
 
 .home button {
 	position: fixed;
 	top: 1%;
-	left: 47%; 
+	left: 30%; 
 	display : block;
 	font-family: "Roboto", sans-serif;
 	text-transform: uppercase;
@@ -100,7 +123,6 @@
 	cursor: pointer;
 	border-radius: 5px;
 }
-
 .alert button {
 	position: fixed;
 	top: 1%;
@@ -154,7 +176,7 @@
 	left: 40%; 
 }
 
-.logout button:hover, .form button:active, .form button:focus, .home button:hover{
+.logout button:hover, .form button:active, .form button:focus {
 	background: #247b22;
 }
 
@@ -166,7 +188,4 @@ body {
 	background: linear-gradient(to left, #376ca9, #10080800);
 	font-family: "Roboto", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	border-radius: 10px;
 }
-

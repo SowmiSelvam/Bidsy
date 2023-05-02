@@ -16,23 +16,22 @@
 <title>User Landing</title>
 </head>
 <body>
-
-	<div class="alert" style="float: right">
-		<a href='setAlerts.jsp'><button>set Alert</button></a>
+	<div class="alert">
+		<label> <a href="setAlerts.jsp"><button name="alert">Set Alerts</button></a>
+		</label>
 	</div>
 	<div class="home">
-		<label style="float: left" class="logoutLblPos"> <a
-			href="user_landing.jsp"><button name="home">Home</button></a>
+		<label class="logoutLblPos"> <a href="user_landing.jsp"><button
+					name="home">Home</button></a>
 		</label>
 	</div>
 	<div class="logout">
 		<form name="form1" method="post" action="logout">
-			<label style="float: right" class="logoutLblPos">
+			<label class="logoutLblPos">
 				<button name="logout">logout</button>
 			</label>
 		</form>
 	</div>
-
 
 	<div>
 		<%
@@ -42,6 +41,7 @@
 		out.print("<label style=\"float: left\" class = \"username\">Welcome " + fname + " " + lname + "</label>");
 		%>
 	</div>
+
 	<div class="searchform">
 		<form action="marketplace.jsp" method="post">
 

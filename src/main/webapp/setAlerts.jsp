@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="marketplace.css">
+<link rel="stylesheet" href="employee_register.css">
 <title>set Alerts</title>
 </head>
 <body>
-	<div class="alert" style="float: right">
+	<div class="back" style="float: right">
 		<a href='marketplace.jsp'><button>back</button></a>
 	</div>
 	<div class="home">
@@ -25,17 +25,17 @@
 			</label>
 		</form>
 	</div>
-	<div class="user-dashboard">
-		<div class="searchform">
+	<div class="employee-register">
+		<div class="form">
 			<form action="setAlert" method="post">
 
 				<div class="form-group">
-					<div>
+					<div class="search-div">
 						<label for="price">Select maximum Price:</label> <input
 							type="number" step=10 class="form-control" id="price"
 							name="price">
 					</div>
-					<div>
+					<div class="search-div">
 						<label for="ram">RAM:</label><select class="form-control" id="ram"
 							name="ram" multiple>
 							<option value="Select All" selected>Select All</option>
@@ -45,12 +45,12 @@
 							<option value="32 GB">32 GB</option>
 						</select>
 					</div>
-					<div>
+					<div class="search-div">
 						<label for="displaySize">Select Maximum Display Size:</label> <input
 							type="number" step=0.1 class="form-control" id="displaySize"
 							name="displaySize">
 					</div>
-					<div>
+					<div class="search-div">
 						<label for="operatingSystem">Operating System:</label> <select
 							class="form-control" id="operatingSystem" name="operatingSystem"
 							multiple>
@@ -61,7 +61,7 @@
 							<option value="Linux">Linux</option>
 						</select>
 					</div>
-					<div>
+					<div class="search-div">
 						<label for="processor">Processor:</label> <select
 							class="form-control" id="processor" name="processor" multiple>
 							<option value="Select All" selected>Select All</option>
@@ -71,7 +71,7 @@
 							<option value="M2">M2</option>
 						</select>
 					</div>
-					<div>
+					<div class="search-div">
 						<label for="hdd">HDD Size:</label> <select class="form-control"
 							id="hdd" name="hdd" multiple>
 							<option value="Select All" selected>Select All</option>
@@ -81,7 +81,7 @@
 							<option value="2048">2048 GB</option>
 						</select>
 					</div>
-					<div>
+					<div class="search-div">
 						<label for="processor">Graphics:</label> <select
 							class="form-control" id="graphics" name="graphics" multiple>
 							<option value="Select All" selected>Select All</option>

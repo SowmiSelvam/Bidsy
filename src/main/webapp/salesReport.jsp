@@ -12,26 +12,25 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="marketplace.css">
+<link rel="stylesheet" href="salesReport.css">
 <title>Sales Reports</title>
 </head>
 <body>
-	<div class="form">
-		<div class="home">
-			<label style="float: left" class="logoutLblPos"> <a
-				href="admin_landing.jsp"><button name="home">Home</button></a>
+	<div class="logout-div">
+		<div class="back">
+			<label> <a href="admin_landing.jsp"><button name="back">Home</button></a>
 			</label>
 		</div>
 		<div class="logout">
 			<form name="form1" method="post" action="logout">
-				<label style="float: right" class="logoutLblPos">
+				<label class="logoutLblPos">
 					<button name="logout">logout</button>
 				</label>
 			</form>
 		</div>
 	</div>
+	<br/><br/><br/><br/>
 	<div class="user-dashboard">
-
 		<div class="form">
 			<table class="datatable">
 				<tr>
@@ -183,8 +182,8 @@
 
 					StringBuilder str3 = new StringBuilder();
 
-					str3.append("<tr><td>").append(itemDescription).append("</td>").append("<td>").append(String.valueOf(number_of_items_sold))
-					.append("</td></tr>");
+					str3.append("<tr><td>").append(itemDescription).append("</td>").append("<td>")
+					.append(String.valueOf(number_of_items_sold)).append("</td></tr>");
 
 					out.print(str3);
 				}

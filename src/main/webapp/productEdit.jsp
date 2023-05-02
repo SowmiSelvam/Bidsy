@@ -15,6 +15,17 @@
 <title>Product</title>
 </head>
 <body>
+	<div class="back">
+		<label> <a href="auctionsList.jsp"><button name="back">Back</button></a>
+		</label>
+	</div>
+	<div class="logout">
+		<form name="form1" method="post" action="logout">
+			<label style="float: right" class="logoutLblPos">
+				<button name="logout">logout</button>
+			</label>
+		</form>
+	</div>
 	<div class="user-dashboard">
 		<div class="form">
 			<table>
@@ -99,7 +110,8 @@
 
 						Statement stmt3 = con.createStatement();
 						CustomLogger.log(String.valueOf(item_id));
-						String sql3 = "select q_user_id, question, answer, date_time from comments_inEditsContainsQnA where item_id =" + item_id + ";";
+						String sql3 = "select q_user_id, question, answer, date_time from comments_inEditsContainsQnA where item_id ="
+						+ item_id + ";";
 						ResultSet rs3 = stmt3.executeQuery(sql3);
 						// loop through the result set and create options for the select element
 
@@ -109,21 +121,19 @@
 							CustomLogger.log(itemQuestion);
 							String itemAnswer = rs3.getString("answer");
 							String date_time = rs3.getString("date_time");
-							
+
 							CustomLogger.log("inside Loop");
 							if (rs3.getString("answer") == null || rs3.getString("answer").isEmpty()) {
 						StringBuilder str4 = new StringBuilder();
 						CustomLogger.log("inside if");
 						str4.append(
 								"<form method=\"post\" action=\"productEdit.jsp\"><input type=\"text\" name=\"item_id\" value=\"")
-								.append(item_id)
-								.append("\"hidden><input type=\"text\" name=\"date_time\" value=\"")
-								.append(date_time)
-								.append("\"hidden><input type=\"text\" name=\"questionUser\" value=\"")
+								.append(item_id).append("\"hidden><input type=\"text\" name=\"date_time\" value=\"")
+								.append(date_time).append("\"hidden><input type=\"text\" name=\"questionUser\" value=\"")
 								.append(questionUser)
 								.append("\"hidden><input type=\"text\" name=\"answer\" id=\"answer\"/><button>Post</button></form>");
 						itemAnswer = str4.toString();
-							} 
+							}
 
 							StringBuilder str3 = new StringBuilder();
 

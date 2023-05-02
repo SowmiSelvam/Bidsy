@@ -66,8 +66,8 @@
 
 					Statement stmt = con.createStatement();
 					CustomLogger.log("user_id:" + request.getParameter("user_id"));
-					String sql = "select first_name, last_name, address, email, telephone_no, bank_acc_no, routing_no from bidsy_user where user_id=\""
-					+ request.getParameter("user_id") + "\";";
+					String sql = "select first_name, last_name, address, email, telephone_no, bank_acc_no, routing_no from bidsy_user where user_id='"
+					+ request.getParameter("user_id") + "';";
 
 					ResultSet rs = stmt.executeQuery(sql);
 					// loop through the result set and create options for the select element
@@ -76,9 +76,9 @@
 						String last_name = rs.getString("last_name");
 						String address = rs.getString("address");
 						String email = rs.getString("email");
-						int telephone_no = rs.getInt("telephone_no");
-						int bank_acc_no = rs.getInt("bank_acc_no");
-						int routing_no = rs.getInt("routing_no");
+						String telephone_no = rs.getString("telephone_no");
+						String bank_acc_no = rs.getString("bank_acc_no");
+						String routing_no = rs.getString("routing_no");
 
 						StringBuilder str = new StringBuilder();
 

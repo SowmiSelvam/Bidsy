@@ -6,13 +6,13 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="signup.css" />
+<link rel="stylesheet" href="employee_register.css" />
 <title>Employee Register</title>
 </head>
 <body>
-	<div class="home">
-		<label style= "left:86%" class="logoutLblPos"> <a
-			href="admin_landing.jsp"><button name="home">Home</button></a>
+
+	<div class="back">
+		<label> <a href="admin_landing.jsp"><button name="back">Home</button></a>
 		</label>
 	</div>
 	<div class="logout">
@@ -22,6 +22,7 @@
 			</label>
 		</form>
 	</div>
+
 	<div class="employee-register">
 		<div class="form">
 			<form class="register-form" method="post" action="employeeRegister">

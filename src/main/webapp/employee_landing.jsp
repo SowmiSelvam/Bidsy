@@ -29,10 +29,10 @@
 				<a href="bidsList.jsp"><button class="redirect buy">View All Bids</button></a>
 			</div>
 			<div>
-				<a href="auctionsList.jsp"><button class="redirect buy">View All Auctions</button></a>
+				<a href="auctionsList.jsp"><button class="redirect sell">View All Auctions</button></a>
 			</div>
 			<div>
-				<a href="usersList.jsp"><button class="redirect buy">View All Users</button></a>
+				<a href="usersList.jsp"><button class="redirect check">View All Users</button></a>
 			</div>
 		</div>
 	</div>

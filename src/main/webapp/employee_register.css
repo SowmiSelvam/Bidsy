@@ -27,6 +27,68 @@
   font-size: 14px;
   border-radius: 5px;
 }
+.logout button {
+	position: fixed;
+	top: 1%;
+	left: 53%; display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;
+}
+
+.back button {
+	position: fixed;
+	top: 1%;
+	left: 47%; display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+	display: block;
+}
+
+.home button {
+	position: fixed;
+	top: 1%;
+	left: 40%; 
+	display : block;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #3aa937;
+	width: auto;
+	border: 0;
+	margin: 2% 40% 2% 40%;
+	padding: 15px;
+	color: #FFFFFF;
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	border-radius: 5px;
+}
 .form button {
     display: block;
   font-family: "Roboto", sans-serif;
@@ -55,6 +117,14 @@
 .form .message a {
   color: #376ca9;
   text-decoration: none;
+}
+.search-div{
+	margin: 10px 0 20px;
+}
+
+.search-div label{
+	margin: 0 20px 0;
+	
 }
 body {
   background: #10080800; /* fallback for old browsers */
